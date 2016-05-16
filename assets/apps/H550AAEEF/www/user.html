@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <link rel="stylesheet" href="css/style.css"/>
+    <style type="text/css">
+    	*{color: #fff;}
+    	.mui-media-body{color: #888 !important;}
+    </style>
+</head>
+<body>
+<div class="mui-content">
+	<div style="display: block;height: 200px;background-color: #D34;position: relative;">
+		<img src="" id="seticon" style="display: block;border-radius:50% ;border: 1px solid #fff;width: 80px;height: 80px;position: absolute;top: 20px;left: 50px;background-image: url(img/head_default.png);background-size: 100%;" />
+		<h4 style="position: absolute;top: 35px;left: 150px;color: #fff;">昵称：<span id="nik">微登贝尔</span></h4>
+		<h4 style="position: absolute;top: 65px;left: 150px;color: #fff;">ID：<span id="pho"></span></h4>
+		<div style="position: absolute;bottom: 0;width: 100%;height: 50px;background-color: rgba(0,0,0,.3);">
+		<h3 style="margin: 0;display: inline-block;width: 50%;height: 50px;line-height: 50px;text-align: center;float: left;border-right: 1px solid #ccc;font-size: 20px;">
+			<span style="float: left;margin-left: 15px;">积分</span>
+			<span id="jifen">000</span>
+		</h3>
+		<h3 style="margin: 0;display: inline-block;width: 50%;height: 50px;line-height: 50px;text-align: center;float: left;font-size: 20px;">
+			<span style="float: left;margin-left: 15px;">微币</span>
+			<span id="vbi">0</span>
+		</h3>
+		</div>
+	</div>
+<ul class="mui-table-view mui-grid-view mui-grid-9" style="background-color: #fff;">
+	<li id="mycard" class="mui-table-view-cell mui-col-xs-3" style="padding: 20px 0;">
+		<span class="mui-icon icon-bookmark" style="color: #dc3;"></span>
+		<div class="mui-media-body">名片</div>
+	</li>
+	<li id="reinfo" class="mui-table-view-cell mui-col-xs-3" style="padding: 20px 0;">
+		<span class="mui-icon mui-icon-spinner" style="color: #39d;"></span>
+		<div class="mui-media-body">资料修改</div>
+	</li>
+	<li id="collcet" class="mui-table-view-cell mui-col-xs-3" style="padding: 20px 0;">
+		<span class="mui-icon icon-star-empty" style="color: #d67;"></span>
+		<div class="mui-media-body">收藏</div>
+	</li>
+	<li  id="wallet"class="mui-table-view-cell mui-col-xs-3" style="padding: 20px 0;">
+		<span class="mui-icon icon-dollar" style="color: #d34;"></span>
+		<div class="mui-media-body">钱包</div>
+	</li>
+	<li id="vip" class="mui-table-view-cell mui-col-xs-3" style="padding: 30px 0;">
+		<span class="mui-icon icon-coffee" style="color: #D39;"></span>
+		<div class="mui-media-body">会员服务</div>
+	</li>
+	<li id="myshop" id="myshop" class="mui-table-view-cell mui-col-xs-6" style="padding: 30px 0;">
+		<span class="mui-icon mui-icon-home" style="color: #d34;"></span>
+		<div class="mui-media-body">商铺</div>
+	</li>
+	<li id="idt" class="mui-table-view-cell mui-col-xs-3" style="padding: 30px 0;">
+		<span class="mui-icon icon-trophy" style="color: #9de;"></span>
+		<div class="mui-media-body">认证</div>
+	</li>
+	<li id="active" class="mui-table-view-cell mui-col-xs-3" style="padding: 20px 0;">
+		<span class="mui-icon icon-bullhorn" style="color: #EB6100;"></span>
+		<div class="mui-media-body">抽奖</div>
+	</li>
+	<li id="advice" class="mui-table-view-cell mui-col-xs-3"  style="padding: 20px 0;">
+		<span class="mui-icon icon-edit" style="color: #EB6100;"></span>
+		<div class="mui-media-body">反馈</div>
+	</li>
+	<li id="about" class="mui-table-view-cell mui-col-xs-3"  style="padding: 20px 0;">
+		<span class="mui-icon mui-icon-info" style="color: #EB6100;"></span>
+		<div class="mui-media-body">关于我们</div>
+	</li>
+	<li id="btn-ext" class="mui-table-view-cell mui-col-xs-3" style="padding: 20px 0;">
+		<span class="mui-icon mui-icon-more" style="color: #EB6100;"></span>
+		<div class="mui-media-body">注销</div>
+	</li>
+</ul>
+<p style="background-color: #fff;text-align: center;">微阿里（北京）科技有限公司</p>
+</div>
+<script src="js/mui.min.js"></script>
+<script src="js/config.js"></script>
+    <script type="text/javascript" charset="utf-8">
+      	mui.init();
+      	document.addEventListener('plusready',function(){
+1      		//获取信息
+      		mui.getJSON($http+'userinfo_get.php',{pho:plus.storage.getItem('pho')},function(data){
+						if (data.status==0) {
+							document.getElementById('seticon').setAttribute('src',$http+'icon/'+data.val.icon);
+							document.getElementById('nik').innerText=data.val.nik;
+							document.getElementById('jifen').innerText=parseInt(data.val.jifen);
+							document.getElementById('vbi').innerText=parseInt(data.val.vbi);
+							document.getElementById('pho').innerText=parseInt(data.val.id);
+							plus.storage.setItem('level',String(parseInt(data.val.level)));
+						}
+					});
+      		document.getElementById('mycard').addEventListener('tap',function(){
+      			plus.webview.open("html/mycard.html", "mycard", {top:"0px",bottom:'opx'},"slide-in-bottom",300);
+      		});
+      		document.getElementById('reinfo').addEventListener('tap',function(){
+      			plus.webview.open("html/reinfo.html", "reinfo", {top:"0px",bottom:'opx'},"slide-in-right",300);
+      		});
+      		document.getElementById('collcet').addEventListener('tap',function(){
+      			plus.webview.open("html/adv_clt.html", "adv_clt", {top:"0px",bottom:'opx'},"slide-in-right",300);
+      		});
+      		document.getElementById('wallet').addEventListener('tap',function(){
+      			plus.webview.open("html/wallet.html", "wallet", {top:"0px",bottom:'opx'},"slide-in-right",300);
+      		});
+      		document.getElementById('vip').addEventListener('tap',function(){
+      			plus.webview.open("html/bd_rec.html", "bd_rec", {top:"0px",bottom:'opx'},"slide-in-right",300);
+      		});
+      		document.getElementById('idt').addEventListener('tap',function(){
+      			plus.webview.open("html/idt.html", "idt", {top:"0px",bottom:'opx'},"slide-in-right",300);
+      		});
+      		document.getElementById('active').addEventListener('tap',function(){
+      			plus.nativeUI.toast('目前没有活动，请注意官方最新活动开放通知');
+      		});
+      		document.getElementById('advice').addEventListener('tap',function(){
+      			plus.webview.open("html/advice.html", "advice", {top:"0px",bottom:'opx'},"slide-in-right",300);
+      		});
+      		document.getElementById('about').addEventListener('tap',function(){
+      			plus.webview.open("html/about.html", "about", {top:"0px",bottom:'opx'},"slide-in-right",300);
+      		});
+      		document.getElementById('btn-ext').addEventListener('tap',function(){
+      			plus.nativeUI.confirm('确认退出当前用户？', function(e){
+      				if(e.index==0){
+      					plus.storage.clear();
+      					mui.openWindow({url:"login.html",id:"login",
+    					styles:{top:"0",bottom:"0"}});
+      				};
+      			}, '系统提示', ["确定","取消"] );
+      		});
+      		document.getElementById('myshop').addEventListener('tap',function(){
+      			if(plus.storage.getItem('level')>=1){
+      				plus.webview.open("html/myshop.html", "myshop", {top:"0px",bottom:'opx'},"slide-in-right",300);
+      			}else{
+      				plus.nativeUI.toast('你还没有开通商铺，请先注册商铺!');
+					plus.webview.open("html/vip.html", "vip", {top:"0px",bottom:'opx'},"slide-in-right",300);
+      			}
+      		});
+});
+    </script>
+</body>
+</html>

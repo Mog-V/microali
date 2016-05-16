@@ -1,0 +1,107 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/config.js"></script>
+    	<link href="../css/mui.min.css" rel="stylesheet"/>
+		<style>
+			.mui-bar-nav *{color: #EB6100;}
+	    	.mui-content{background-color: #fff;}
+	    	.glarry{display: block;padding: 15px 10px;}
+	    	.glarry>img{display: inline-block;margin-left: 15px;width: 65px;height: 65px;}
+	    	.imgbtn{display: block;text-align: center;}
+	    	.imgbtn>span{display: inline-block;background-color: #EB6100;padding: 5px 7px;margin-right: 10px;font-size: 18px;border-radius: 5px;color: #fff;}
+	    	.txt{display: block;margin: 40px auto;width: 90%;height: 150px;white-space: pre-wrap;text-wrap: unrestricted;text-align: left;}
+	    	.upbtn{display: block;background-color: #EB6100;font-size: 24px;padding: 10px 20px;position: fixed;bottom: 0;left: 0;right: 0;text-align: center;color: #fff;}
+	    	.mui-content{padding-bottom: 60px;}
+	    	.push-d{padding: 0 15px;}
+	    	.push-title{text-align: center;color: #888;font-size: 16px;}
+    	</style>
+		<script type="text/javascript">
+		mui.init();
+var server="http://www.wedams.com/app/ajax/upload.php";
+function upload(){
+	if(mui("#glarry>img").length==0&&document.getElementById('txt').value==''){
+		plus.nativeUI.toast('未输入任何信息！');
+		return;
+	}
+	var $thisw=plus.webview.currentWebview();
+	var task=plus.uploader.createUpload($http+"bbs_push.php",
+		{method:"POST"},
+		function(t,status){ //上传完成
+			if(status==200){
+				plus.nativeUI.toast("文章发表成功，正在刷新");
+				plus.webview.getWebviewById('bbs.html').reload();
+				$thisw.close();
+			}else{
+				plus.nativeUI.toast("文章发表失败，请检查网络");
+			}
+		}
+	);
+	task.addData("pho",plus.storage.getItem('pho'));
+	task.addData("text",document.getElementById('txt').value);
+	task.addData("local",plus.storage.getItem('local'));
+	var imglist=mui("#glarry>img");
+	for (var i=0;i<imglist.length;i++) {
+		task.addFile(imglist[i].getAttribute("src"),{key:i});
+	}
+	task.start();
+	plus.nativeUI.toast("文章后台发布中，请稍后...");
+	$thisw.hide();
+}
+// 拍照添加文件
+function appendByCamera(){
+	plus.camera.getCamera().captureImage(function(p){
+		plus.io.resolveLocalFileSystemURL(p,function(entry){
+			appendFile(entry.toLocalURL());
+		});
+	});	
+}
+// 从相册添加文件
+function appendByGallery(){
+	plus.gallery.pick( function(e){
+    	for(var i in e.files){
+	    	appendFile(e.files[i]);
+    	}
+    }, function ( e ) {
+    },{filter:"image",multiple:true});
+}
+// 添加文件
+function appendFile(p){
+	var fe=document.getElementById("glarry");
+	var li=document.createElement("img");
+	li.setAttribute("src",p);
+	fe.appendChild(li);
+}
+function delimg(){
+	document.getElementById("glarry").innerHTML='';
+}
+		</script>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title" id="adv-title">发表文章</h1>
+		</header>
+		<div class="mui-content">
+			<div class="glarry" id="glarry">
+			</div>
+			<div class="imgbtn">
+				<span onclick="appendByCamera()">拍照</span>
+				<span onclick="appendByGallery()">相册选取</span>
+				<span onclick="delimg()">清空</span>
+			</div>
+			<textarea class="txt" id="txt" placeholder="请输入内容"></textarea>
+			<div class="push-d">
+				<h3 class="push-title">《用户信息发布条约》</h3>
+				<p>1、禁止发表违反宪法、 法律和行政法规的文章、 视频及图片等评论。</p>
+				<p>2、禁止发表不利于国家统一, 民族团结和领土完整的文章、 言论和视频图片等评论。</p>
+				<p>3、禁止发表含有对种族、 民族、 及残疾等的歧视性内容的文章、 视频、 图片、 和跟帖评论等。</p>
+				<p>4、禁止发布有关黄，赌，毒，邪教组织等文章、图片、评论等。</p>
+			</div>
+			<a class="upbtn" onclick="upload()">发布</a>
+		</div>
+	</body>
+</html>

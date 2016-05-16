@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<link rel="stylesheet" href="css/style.css"/>
+		<script src="js/mui.min.js"></script>
+		<style type="text/css">
+		</style>
+	</head>
+	<body style="background-color: rgb(241,241,241)">
+		<div class="load" id="load">
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</div>
+		<!--下拉刷新容器-->
+<div id="pullrefresh" class="mui-content" style="display: block;">
+<ul class="dsc-cot" id="adv-cot">
+
+</ul>
+</div>
+<script src="js/config.js"></script>
+<script>
+	mui.init({
+		swipeBack: false,
+		pullRefresh: {
+			container: '#pullrefresh',
+			down: {
+				callback: pulldownRefresh
+			},
+			up: {
+				contentnomore: '- THE END -',
+				callback: pullupRefresh
+			}
+		}
+	});
+	function pulldownRefresh() {
+			plus.webview.currentWebview().reload();
+			mui('#pullrefresh').pullRefresh().endPulldownToRefresh(); //refresh completed
+	}
+	var count = 0;
+	/**
+	 * 上拉加载具体业务实现
+	 */
+	var $page=0;
+	document.addEventListener('plusready',function(){
+		mui.getJSON($http+'adv_get.php', {pho:plus.storage.getItem('pho'),page:$page}, function(data) {
+				if(data.status==0){
+					if(data.val.length==0){
+						mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);
+						document.getElementById('pullrefresh').style.display="block";
+						document.getElementById('load').style.display="none";
+						return;
+					}
+					for (var i=0;i<data.val.length;i++) {
+						var $adpic=$http+"adv/"+data.val[i].adpic,
+							$title=data.val[i].title,
+							$advid=data.val[i].id,
+							$txt=data.val[i].txt,
+							$shpho=data.val[i].pho,
+							$totime=data.val[i].totime,
+							$shopname=data.val[i].shopname;
+						var $html='<div class="adv-img-cot"><img src="'+$adpic+'"/></div>';
+							if(data.val[i].isshop==1){
+								$html+='<span class="adv-list-icon">已认证</span>';
+							}
+							$html+='<h3 class="adv-list-title">'+$title+'</h3>';
+							$html+='<p class="adv-list-txt">'+$shopname+'</p>';
+							$html+='<i class="icon-calendar"><span>'+$totime+'</span></i>';
+						var li=document.createElement('li');
+							li.className='adv-list';
+							li.setAttribute('data-img',$adpic);
+							li.setAttribute('data-title',$title);
+							li.setAttribute('data-txt',$txt);
+							li.setAttribute('data-shpho',$shpho);
+							li.setAttribute('data-id',$advid);
+							li.innerHTML=$html;
+							li.addEventListener('tap',function(){
+								link(this);});
+							document.getElementById('adv-cot').appendChild(li);
+							$page++;
+							if(data.val.length-1==i){
+								document.getElementById('pullrefresh').style.display="block";
+								document.getElementById('load').style.display="none";
+							}
+							}}
+					});
+	});
+	function pullupRefresh() {
+			mui('#pullrefresh').pullRefresh().endPullupToRefresh();
+			mui.getJSON($http+'adv_get.php', {pho:plus.storage.getItem('pho'),page:$page}, function(data) {
+				if(data.status==0){
+					if(data.val.length==0){
+						mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);
+						return;
+					}
+					for (var i=0;i<data.val.length;i++) {
+						var $adpic=$http+"adv/"+data.val[i].adpic,
+							$title=data.val[i].title,
+							$advid=data.val[i].id,
+							$txt=data.val[i].txt,
+							$shpho=data.val[i].pho,
+							$totime=data.val[i].totime,
+							$shopname=data.val[i].shopname;
+						var $html='<div class="adv-img-cot"><img src="'+$adpic+'"/></div>';
+						if(data.val[i].isshop==1){
+							$html+='<span class="adv-list-icon">已认证</span>';
+						}
+							$html+='<h3 class="adv-list-title">'+$title+'</h3>';
+							$html+='<p class="adv-list-txt">'+$shopname+'</p>';
+							$html+='<i class="icon-calendar"><span>'+$totime+'</span></i>';
+						var li=document.createElement('li');
+							li.className='adv-list';
+							li.setAttribute('data-img',$adpic);
+							li.setAttribute('data-title',$title);
+							li.setAttribute('data-txt',$txt);
+							li.setAttribute('data-shpho',$shpho);
+							li.setAttribute('data-id',$advid);
+							li.innerHTML=$html;
+							li.addEventListener('tap',function(){
+								link(this);});
+							document.getElementById('adv-cot').appendChild(li);
+							$page++;
+							}}
+					},'json');
+	}
+function link($obj) {
+	mui.openWindow({
+		url: 'html/adv.html',
+		id: 'html/adv.html',
+		styles: {
+			top: '0px', //新页面顶部位置
+			bottom: '0px' //新页面底部位置
+		},
+		show:{
+			duration:350
+			},
+		extras: {
+			adpic:$obj.getAttribute('data-img'),
+			title:$obj.getAttribute('data-title'),
+			shpho:$obj.getAttribute('data-shpho'),
+			txt:$obj.getAttribute('data-txt'),
+			advid:$obj.getAttribute('data-id')
+		},
+		waiting: {
+			autoShow: false}
+	})
+}</script>
+</body>
+</html>

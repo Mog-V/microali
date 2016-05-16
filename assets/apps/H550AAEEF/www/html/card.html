@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+	</head>
+	<style type="text/css">
+		*{margin: 0;padding: 0;font-family: "微软雅黑";font-size: 14px;font-weight: 100;color: #fff;}
+		.cot{position: fixed;top: 0;left: 0;right: 0;bottom: 0;background-color: #888;background-image: url(../img/bg1.jpg);background-size: 100%;overflow: hidden;}
+		.head-img{display: block;width: 100px;height: 100px;border: 2px solid #d34;border-radius: 50%;overflow: hidden;
+		box-shadow: 0 0 20px 0 rgba(0,0,0,.9);position: absolute;top: 70px;left: 50px;
+		background-image: url(../img/head_default.png); background-size: 100%;}
+		.title{margin-top: 15px;text-align:center;font-size: 23px;font-weight: 900;}
+		.nik{position: absolute;top: 130px;left: 180px;font-size: 16px;font-weight: 900;}
+		.rlcot{position: absolute;top: 200px;left: 15px;}
+		.ewm{display: inline-block;padding: 10px 15px;width: 30px;height: 30px;border-right: 1px solid #fff;}
+		.pho{display: inline-block;margin-left: 15px;font-size: 12px;font-weight: 100;}
+		.pho *{display: block;font-size: inherit;font-weight: inherit;}
+		.info{position: absolute;top: 265px;left: 0;padding-left:20px;padding-right: 20px;width: auto;overflow: hidden;}
+		.info *{width: 280px;text-wrap: none;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;}
+		.info:after{content: "";display: block;margin-top: 15px;width:320px;height: 1px;background:linear-gradient(to left, rgba(0,0,0,0),#fff,rgba(0,0,0,0));}
+		.txtabout{display: block;position: absolute;padding: 0 15px;top: 380px;bottom: 50px;text-wrap: normal;white-space: pre-line;overflow-x: hidden;overflow-y: scroll;font-size: 14px;
+		box-sizing: border-box;width: 100%;}
+		.rtp{display: block;position: absolute;top: 190px;right: 0;width: 80px;height: 40px;line-height: 40px;border-radius: 5px 0 0 5px;background-color: rgba(0,0,0,.4);text-align: center;font-size:14px}
+		.rtc{display: block;position: absolute;top: 240px;right: 0;width: 80px;height: 40px;line-height: 40px;border-radius: 5px 0 0 5px;background-color: rgba(0,0,0,.4);text-align: center;font-size:14px}
+		.rtm{display: block;position: absolute;top: 290px;right: 0;width: 80px;height: 40px;line-height: 40px;border-radius: 5px 0 0 5px;background-color: rgba(0,0,0,.4);text-align: center;font-size:14px}
+		#alt{display: none;position: fixed;z-index: 2;top: 0;left: 0;right:0;bottom: 0;background-color: rgba(0,0,0,.8);}
+		#altfrm{display: block;position: absolute;top: 20%;left: 50%;margin-left: -125px;width: 250px;height: 200px;background-color: #fff;border-radius: 5px;}
+		#altfrm>img{display: block;width: 150px;height: 150px;margin: 10px auto;}
+		#altfrm>p{color: #888;font-size: 12px;text-align: center;}
+		#level>img{display: inline-block;width: 15px;}
+	</style>
+	<body>
+		<div class="cot">
+			<h3 class="title" id="shopname"></h3>
+			<img class="head-img" id="icon"/>
+			<label class="nik" id="nik"></label>
+			<div class="rlcot">
+				<img class="ewm" src="../img/2m.png" id="ewm"/>
+				<div class="pho">
+					<p>会员ID：</p>
+					<p id="pho"></p>
+					<p id="level"></p>
+				</div>
+			</div>
+			<div class="info">
+				<p>微信：<span id="weixin"></span></p>
+				<p>客服：<span id="tell"></span></p>
+				<p>邮箱：<span id="email"></span></p>
+				<p>地址：<span id="local"></span></p>
+			</div>
+			<p class="txtabout" id="more"></p>
+		</div>
+		<div class="rtp">
+			一键拨号
+		</div>
+		<div class="rtc" id="rtc">
+			商商通
+		</div>
+		<div class="rtm">
+			关于微阿里
+		</div>
+		<div id="alt">
+			<div id="altfrm">
+				<img src="../img/mm.png"/>
+				<p class="mmtxt">扫描二维码查看个性名片</p>
+			</div>
+		</div>
+<script src="../js/mui.min.js" ></script>
+<script src="../js/config.js"></script>
+<script type="text/javascript">
+document.addEventListener('plusready',function(){
+	mui.getJSON($http+'userinfo_get.php',
+	{pho:plus.storage.getItem('pho')},function(e){
+				document.getElementById('shopname').innerText=e.val.shopname;
+				document.getElementById('shopname').setAttribute('src','http://www.wedams.com/app/ajax/icon/'+e.val.icon);
+				document.getElementById('nik').innerText=e.val.nik;
+				document.getElementById('pho').innerText=plus.storage.getItem('pho');
+				document.getElementById('weixin').innerText=e.val.weixin;
+				document.getElementById('tell').innerText=e.val.tell;
+				document.getElementById('email').innerText=e.val.email;
+				document.getElementById('local').innerText=e.val.local;
+				document.getElementById('more').innerText=e.val.more;
+				if(e.val.level>=2){
+					document.getElementById('level').innerHTML='<img src="../img/v2.png"/>认证';
+				}
+				if(e.val.level==1){
+					document.getElementById('level').innerHTML='<img src="../img/v1.png"/>认证';
+				}
+				document.getElementById('rtc').addEventListener('tap',function(){
+					//plus.runtime.openURL(data.val.url);
+				});
+			});
+	document.getElementById('ewm').addEventListener('tap',function(){
+		document.getElementById('alt').style.display="block";
+	});
+	document.getElementById('alt').addEventListener('tap',function(){
+		document.getElementById('alt').style.display="none";
+	});
+})
+
+</script>
+	</body>
+</html>

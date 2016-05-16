@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <script src="js/mui.min.js"></script>
+    <link href="css/mui.min.css" rel="stylesheet"/>
+    <style type="text/css">
+    	body{background-image: url(img/wait.jpg);background-size: 100%;}
+    </style>
+</head>
+<body>
+</body>
+<script src="js/config.js"></script>
+<script type="text/javascript" charset="utf-8">
+      	document.addEventListener("plusready", function() {
+      		mui.getJSON($http+'sys_version_get.php',{},function(data){
+      			if (data.status==0) {
+      				if(data.val.v!='1.0'){
+      					alert('发现版本更新！');
+      					plus.runtime.openURL(data.val.url);
+      					plus.runtime.quit();
+      				}
+      			} else{
+      				alert('服务器请求更新失败！');
+      				plus.runtime.quit();
+      			}
+      			return;
+      		});
+      	$pho=plus.storage.getItem('pho');
+      	$pas=plus.storage.getItem('pas');
+      	if($pho!=null){
+      		mui.post($http+'userinfo_login.php',{pho:$pho,pas:$pas},function(data){
+			plus.nativeUI.toast(data.msg);
+			if(data.status==0){
+				plus.storage.setItem('icon',data.val);
+				plus.webview.open('index.html','index',{top:'0px',bottom:'0px'},'slide-in-right',300);
+      		}else{
+				mui.openWindow({url:"login.html",id:"login",
+    			styles:{top:"0",bottom:"0",},waiting:{autoShow:false}});
+      		}
+      	},'json');
+      	return;
+      	}
+      	mui.openWindow({url:"reg.html",id:"reg",
+    	styles:{top:"0",bottom:"0",},waiting:{autoShow:false}});
+      	});
+    </script>
+</html>

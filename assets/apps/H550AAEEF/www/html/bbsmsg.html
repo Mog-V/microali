@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <script src="../js/mui.min.js"></script>
+    <script src="../js/config.js"></script>
+    <link href="../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet"  href="../css/font-awesome.min.css"/>
+    <style type="text/css">
+    .mui-content{background-color: #fff;padding: 55px 10px 50px 10px !important;}
+    .mui-bar-nav>*{color: #EB6100;}
+    .mui-active{color: #EB6100 !important;}
+    .msg-cot{display: block;position: absolute;top: 50px;bottom: 50px;left: 10px;right: 10px;}
+    .push-d{padding: 0 5px;}
+    .push-title{text-align: center;color: #888;font-size: 16px;}
+    </style>
+</head>
+<body>
+<header class="mui-bar mui-bar-nav">
+	<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	<h1 class="mui-title">评论信息</h1>
+</header>
+<div class="msg-cot">
+	<textarea id="msgtxt" rows="10" placeholder="请输入留言信息"></textarea>
+			<div class="push-d">
+				<h3 class="push-title">《用户信息发布条约》</h3>
+				<p>1、禁止发表违反宪法、 法律和行政法规的文章、 视频及图片等评论。</p>
+				<p>2、禁止发表不利于国家统一, 民族团结和领土完整的文章、 言论和视频图片等评论。</p>
+				<p>3、禁止发表含有对种族、 民族、 及残疾等的歧视性内容的文章、 视频、 图片、 和跟帖评论等。</p>
+				<p>4、禁止发布有关黄，赌，毒，邪教组织等文章、图片、评论等。</p>
+			</div>
+</div>
+<nav class="mui-bar mui-bar-tab msg">
+	<a id="defaultTab" class="mui-tab-item mui-active" href="main.html">
+		<span class="mui-tab-label">确定回复</span>
+	</a>
+</nav>
+</body>
+<script>
+var $bbsid=0;
+var $msgtime=0;
+mui.init();
+document.addEventListener("plusready", function() {
+	$bbsid=plus.webview.currentWebview().bbsid;
+	document.querySelector(".msg").addEventListener('tap',function(){
+		$tn=new Date().getTime();
+		if($tn-$msgtime<3000){
+			$msgtime=new Date().getTime();
+			return;
+		}
+		$msgtime=new Date().getTime();
+		if(document.getElementById('msgtxt').value==''){
+			plus.nativeUI.toast('留言内容不能为空！');
+			return;
+		}
+	mui.getJSON($http+'bbs_pin.php',
+	{bbsid:$bbsid,pho:plus.storage.getItem('pho'),bbsmsg:document.getElementById('msgtxt').value},
+	function(data){
+		plus.nativeUI.toast(data.msg);
+		if(data.state==0){
+			if(plus.webview.getWebviewById('dsc')){
+				plus.webview.getWebviewById('dsc').reload();
+			}
+			plus.webview.currentWebview().close();
+		}
+	});
+});
+});
+</script>
+</html>

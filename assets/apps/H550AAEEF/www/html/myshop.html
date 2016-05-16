@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <script src="../js/mui.min.js"></script>
+    <link href="../css/mui.min.css" rel="stylesheet"/>
+    <style type="text/css">
+    	*{font-family: "微软雅黑";font-size: 24px;color: #fff;}
+    	.bot{display: block;position: fixed;width: 100%;height: 50px;line-height: 50px;top: auto;bottom: 0;background-color: #444;}
+    	.bot>span{display: inline-block;width: 100%;float: left;text-align: center;border-right: 1px solid #fff;}
+    	.bot>span:last-child{border-right: none;}
+    </style>
+</head>
+<body>
+	<div class="bot">
+		<span id="myadp">发布广告</span>
+	</div>
+</body>
+<script type="text/javascript" charset="utf-8">
+      	document.addEventListener('plusready',function(){
+      		plus.storage.setItem('shpho',plus.storage.getItem('pho'));
+      	});
+    mui.init({
+    subpages:[{
+      url:"shop.html",//子页面HTML地址，支持本地地址和网络地址
+      id:'shop',//子页面标志
+      styles:{
+        top:0,//子页面顶部位置
+        bottom:"50px",//子页面底部位置
+      }
+    }]
+  });
+  document.getElementById("myadp").addEventListener("tap",function(){
+  	mui.openWindow({
+    url: 'adp.html', 
+    id: 'adp'
+  });
+  });
+</script>
+</html>

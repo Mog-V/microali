@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" type="text/css" href="../css/style.css"/>
+	</head>
+	<style type="text/css">
+	*{color: #fff;box-sizing: border-box;}
+	body{background-color: #eee;}
+	#header{box-shadow: none;background-color: #444}
+	span{display: block;}
+	.bill-list{width: 100%;height: 84px;line-height: 84px;border-bottom: 1px solid #ddd;color: #666;position: relative;}
+	.bill-list-num{position: absolute;padding-left: 5%;width: 25%;height: inherit;color: #666;font-size: 20px;text-align: left;overflow: hidden;}
+	.bill-list-txt{position: absolute;width: 40%;height: inherit;left: 25%;color: #666;font-size: 16px;text-align: center;overflow: hidden;}
+	.bill-list-info{display: block;position: absolute;width: 35%;padding-right: 5%;height: inherit;left: 65%;color: #666;text-align: right;overflow: hidden;}
+	.bill-list-info>span{display: block;margin: 0;font-size: 12px;color: #888;height: 24px;line-height: 24px;}
+	.bill-list-info>span:first-child{margin-top: 20px;height: 40px;line-height: 40px;font-size: 18px;}
+	.bill-list-l{color: #f80 !important;}
+	.btn-act{color: #d34;}
+	</style>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">账户明细</h1>
+		</header>
+	<div style="position:fixed;top: 50px;right: 0;bottom: 50px;left: 0;background-color: #eee;">
+		<div class="mui-scroll-wrapper" id="vbi-cot">
+			<div class="mui-scroll" id="vbi-list">
+				
+			</div>
+		</div>
+		<div class="mui-scroll-wrapper" id="jifen-cot" style="display: none;">
+			<div class="mui-scroll" id="jifen-list">
+				
+			</div>
+		</div>
+	</div>
+		<div style="position: fixed;bottom: 0;width: 100%;height: 50px;line-height: 50px;background-color: #444;text-align: center;font-size: 20px;color: #fff;">
+			<span class="btn-act" id="vbi" style="width: 50%;float: left;">微币</span>
+			<span id="jifen" style="width: 50%;float: left;">积分</span>
+			<p style="position: absolute;top: 10px;left: 50%;width: 1px;height: 30px;background-color: #fff;"></p>
+		</div>
+	</body>
+<script src="../js/mui.min.js" ></script>
+<script src="../js/config.js"></script>
+<script>
+mui.init();
+mui('.mui-scroll-wrapper').scroll();
+document.addEventListener('plusready',function(){
+mui.post($http+'bill_vbi_get.php',{pho:plus.storage.getItem('pho')},function(data){
+	if(data.status==0){
+		for (var i=0;i<data.val.length;i++) {
+			var li=document.createElement('div');
+				li.className='bill-list';
+			var	$html='<span class="bill-list-num">'+data.val[i].num+'</span>';
+				$html+='<span class="bill-list-txt">'+data.val[i].info+'</span>';
+				$html+='<span class="bill-list-info">';
+				$html+='<span>完成</span>';
+				$html+='<span>'+data.val[i].time+'</span>';
+				$html+='</span>';
+				li.innerHTML=$html;
+				document.getElementById('vbi-list').appendChild(li);
+		}
+	}
+},'json');
+mui.post($http+'bill_jifen_get.php',{pho:plus.storage.getItem('pho')},function(data){
+	if(data.status==0){
+		for (var i=0;i<data.val.length;i++) {
+			var li=document.createElement('div');
+				li.className='bill-list';
+			var	$html='<span class="bill-list-num">'+data.val[i].num+'</span>';
+				$html+='<span class="bill-list-txt">'+data.val[i].info+'</span>';
+				$html+='<span class="bill-list-info">';
+				$html+='<span>完成</span>';
+				$html+='<span>'+data.val[i].time+'</span>';
+				$html+='</span>';
+				li.innerHTML=$html;
+				document.getElementById('jifen-list').appendChild(li);
+		}
+	}
+},'json');
+	document.getElementById('vbi').addEventListener('tap',function(){
+		if(this.className=='btn-act'){
+			return;
+		}
+		this.className='btn-act';
+		document.getElementById('jifen').className='';
+		document.getElementById('vbi-cot').setAttribute('style',"display: block;");
+		document.getElementById('jifen-cot').setAttribute('style',"display: none;");
+	});
+	document.getElementById('jifen').addEventListener('tap',function(){
+		if(this.className=='btn-act'){
+			return;
+		}
+		this.className='btn-act';
+		document.getElementById('vbi').className='';
+		document.getElementById('jifen-cot').setAttribute('style',"display: block;");
+		document.getElementById('vbi-cot').setAttribute('style',"display: none;");
+	});
+});
+</script>
+</html>

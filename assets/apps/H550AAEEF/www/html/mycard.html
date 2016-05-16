@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <script src="../js/mui.min.js"></script>
+    <link href="../css/mui.min.css" rel="stylesheet"/>
+    <style type="text/css">
+    	*{font-family: "微软雅黑";font-size: 24px;color: #fff;}
+    	.bot{display: block;position: fixed;width: 100%;height: 50px;line-height: 50px;top: auto;bottom: 0;background-color: #444;box-shadow: 0 0 5PX 0 #000;}
+    	.bot>span{display: inline-block;width: 100%;text-align: center;}
+    </style>
+</head>
+<body>
+	<div class="bot">
+		<span id="share-card">分享名片</span>
+	</div>
+</body>
+<script type="text/javascript" charset="utf-8">
+      	mui.init();
+      	document.addEventListener('plusready',function(){
+      		plus.storage.setItem('shpho',plus.storage.getItem('pho'));
+      	});
+    mui.init({
+    subpages:[{
+      url:"card.html",//子页面HTML地址，支持本地地址和网络地址
+      id:'card.html',//子页面标志
+      styles:{
+        top:0,//子页面顶部位置
+        bottom:"50px",//子页面底部位置
+      }
+    }]
+  });
+  document.getElementById("share-card").addEventListener("tap",function(){
+  	plus.nativeUI.toast('分享成功');
+  });
+</script>
+</html>

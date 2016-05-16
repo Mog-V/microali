@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" type="text/css" href="../css/style.css"/>
+	</head>
+	<style type="text/css">
+	*{color: #fff;box-sizing: border-box;}
+	body{background-color: #eee;}
+	#header{box-shadow: none;background-color: #444}
+	span{display: block;}
+	.bill-list{width: 100%;height: 84px;line-height: 84px;border-bottom: 1px solid #ddd;color: #666;position: relative;}
+	.bill-list-num{position: absolute;padding-left: 5%;width: 25%;height: inherit;color: #666;font-size: 20px;text-align: left;overflow: hidden;}
+	.bill-list-txt{position: absolute;width: 40%;height: 70px;top: 7px;left: 25%;color: #666;font-size: 16px;text-align: center;overflow: hidden;}
+	.bill-list-txt img{width: 100%;box-shadow: 0 0 5px 0 rgba(0,0,0,.3);}
+	.bill-list-info{display: block;position: absolute;width: 35%;padding-right: 5%;height: inherit;left: 65%;color: #666;text-align: right;overflow: hidden;}
+	.bill-list-info>span{display: block;margin: 0;font-size: 12px;color: #666;height: 24px;line-height: 24px;overflow: hidden;text-overflow: ellipsis;}
+	.bill-list-info>span:first-child{margin-top: 20px;height: 40px;line-height: 40px;font-size: 18px;}
+	.bill-list-l{color: #f80 !important;}
+	.btn-act{color: #d34;}
+	</style>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">广告收藏</h1>
+		</header>
+	<div style="position:fixed;top: 50px;right: 0;bottom: 0;left: 0;background-color: #eee;">
+		<div class="load" id="load">
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</div>
+		<div id="mui-scroll-wrapper" class="mui-scroll-wrapper" style="display: none;">
+			<div class="mui-scroll" id="list-cot">
+				
+			</div>
+		</div>
+	</div>
+	</body>
+<script src="../js/mui.min.js" ></script>
+<script src="../js/config.js"></script>
+<script>
+mui.init();
+mui('#mui-scroll-wrapper').scroll();
+document.addEventListener('plusready',function(){
+	mui.getJSON($http+'adv_clt.php',
+	{pho:plus.storage.getItem('pho')},function(data){
+		plus.nativeUI.toast(data.msg);
+		if(data.status==0){
+			for (var i=0;i<data.val.length;i++) {
+				var li=document.createElement('div');
+					li.className='bill-list';
+				var $html='<span class="bill-list-num">+'+data.val[i].jifen+'</span>';
+					$html+='<span class="bill-list-txt"><img src="'+$http+'adv/'+data.val[i].adpic+'"/></span>';
+					$html+='<span class="bill-list-info"><span>'+data.val[i].title+'</span><span>'+data.val[i].time+'</span></span>';
+					li.innerHTML=$html;
+					document.getElementById('list-cot').appendChild(li);
+				if(i==data.val.length-1){
+					document.getElementById('mui-scroll-wrapper').style.display='block';
+					document.getElementById('load').style.display='none';
+				}
+			}}
+	})
+});
+</script>
+</html>

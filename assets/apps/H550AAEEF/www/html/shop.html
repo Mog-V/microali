@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <script src="../js/mui.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <style type="text/css">
+    	*{color: #fff;font-size: 12px;}
+    	.shop-top{position: relative;height: 230px;overflow: hidden;background-image: url(../img/shop_default.png);}
+    	.shop-top>img{display: block;position: absolute;top: 50px;left: 50%;margin-left: -40px;width: 80px;height: 80px;border-radius: 50%;}
+    	.shop-top>p{position: absolute;top: 140px;width: 100%;text-align: center;}
+    	.shop-top *{font-size: 18px;}
+    	.shop-top .vicon{display: inline;width: 15px;height: 15px;}
+    	.div{background-color: rgba(0,0,0,.5);position: absolute;width: 100%;height: 45px;top: auto;bottom: 0;}
+    	.mui-slider-indicator{display: block;position: absolute;height: 40px;top: 190px;bottom: auto;background-color: rgba(0,0,0,.7);z-index: 100000;}
+    	.mui-control-item{display: inline-block;width: 33.33%;height: 40px;float: left;overflow: hidden;border-right: 1px solid rgba(0,0,0,.2);}
+    	.mui-control-item:last-child{border-right: none;}
+    	.mui-control-item>span{display: inline-block;color: #aaa;}
+    	.mui-control-item>p{color: #fff;}
+    	.mui-control-item.mui-control-item-active>*{color: #d34;}
+    	.mui-slider-group{background-color: rgba(251,251,251,.8);}
+    	.shop-list{margin:15px 5px;border: 1px solid rgba(231,231,231,.8);border-radius: 5px;}
+    	.shop-list>h6{padding-left: 3%;font-size: 16px;}
+    	.adv-img{margin: 0 auto;width: 90% !important;max-height: 150px;overflow: hidden;}
+    	.adv-img>img{width: 100%;}
+    	.shop-list-icon{display: block;width: 100%;}
+    	.shop-list-icon *{color: #ccc !important;margin-right: 5px;}
+    	.shop-list-icon>span{display: inline-block;margin-left: 15px;}
+    	.shop-list-icon span span{margin-right: 15px;}
+    	.nothing{padding-top: 50px;text-align: center;font-size: 20px;}
+    	.mui-control-item-active{background-color: #d34;}
+    	.mui-control-item-active *{color: #fff !important;}
+    </style>
+</head>
+<body>
+<div class="mui-slider">
+	<div class="shop-top" style="background-image: url(../img/shop_default.png);">
+	<img id="icon" src="default_head.jpg"/>
+	<p>
+		<span id="shopname">辽宁省跨越电子科技有限公司</span>
+		<img id="level" src="../img/v1.png" class="vicon" style="background-color:transparent"/>
+	</p>
+</div>
+	<div class="mui-slider-indicator">
+		<a class="mui-control-item mui-control-item-active" href="#item1">
+			<span id="alladv">0</span>
+			<p>广告</p>
+		</a>
+		<a class="mui-control-item" href="#item2">
+			<span>0</span>
+			<p>活动</p>
+		</a>
+		<a class="mui-control-item" href="#item3">
+			<span>0</span>
+			<p>商品</p>
+		</a>
+	</div>
+	<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-4"></div>
+	<div class="mui-slider-group">
+<div id="item1" class="mui-slider-item mui-control-content mui-active">
+
+</div>
+		<div id="item2" class="mui-slider-item mui-control-content">
+			<p class="nothing">暂未开通，敬请期待！</p>
+		</div>
+		<div id="item3" class="mui-slider-item mui-control-content">
+			<p class="nothing">暂未开通，敬请期待！</p>
+		</div>
+	</div>
+</div>
+</body>
+	<script src="../js/config.js"></script>
+    <script>
+      	mui.init();
+document.addEventListener('plusready',function(){
+document.querySelector('.mui-slider').addEventListener('slide', function(event) {
+	var $obj=document.querySelectorAll('.mui-control-item');
+	for (var i=0;i<$obj.length;i++) {
+		$obj[i].className='mui-control-item';
+	}
+	$obj[event.detail.slideNumber].className='mui-control-item mui-control-item-active';
+	return;
+});
+mui.getJSON($http+'userinfo_get.php',
+{pho:plus.storage.getItem('shpho')},function(data){
+	if (data.status == 0) {
+		document.getElementById('icon').setAttribute('src',$http+'icon/'+data.val.icon);
+		document.getElementById('shopname').innerText=data.val.shopname;
+		if(parseInt(data.val.level)>=2){
+			document.getElementById('level').setAttribute('src','../img/v2.png');}
+		if(parseInt(data.val.level)==1){
+			document.getElementById('level').setAttribute('src','../img/v1.png');}
+	}
+});
+mui.getJSON($http+'shop_myadv_get.php', {pho:plus.storage.getItem('shpho')}, function(data) {
+	plus.nativeUI.toast('广告提示'+data.msg);
+	if (data.status == 0) {
+		document.getElementById('alladv').innerText=data.val.length;
+		for (var i=0;i<data.val.length;i++) {
+			var $html='<h6>'+data.val[i].title+'</h6>';
+				$html+='<div class="adv-img"><img src="'+$http+'adv/'+data.val[i].adpic+'"/></div>';
+				$html+='<div class="shop-list-icon">';
+				$html+='<span><span>阅读</span><span>'+parseInt(data.val[i].num)+'</span><span><span>有效期</span><span>'+data.val[i].totime+'</span></div>';
+			var li=document.createElement('div');
+				li.className='shop-list';
+				li.innerHTML=$html;
+				document.getElementById('item1').appendChild(li);
+		}
+	}
+}, 'json');
+    });
+    </script>
+</html>

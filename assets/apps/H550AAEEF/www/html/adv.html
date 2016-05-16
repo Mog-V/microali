@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<!--广告内容-->
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <script src="../js/mui.min.js"></script>
+    <link rel="stylesheet" href="../css/style.css"/>
+    <style>
+    	*{font-size: 18px !important;}
+    	.adv-img{width: 100%;box-shadow: 0 0 5px 0 rgba(0,0,0,.3);}
+    	.mui-content{background-color: #fff;padding-bottom: 50px;}
+    	.adv-content{width: 85%;margin: 25px auto;}
+    	.adv-txt{white-space: pre-wrap;}
+    	.adv-title{margin: 25px auto;text-align: center;font-size: 20px !important;color: #EB6100;}
+    	.adv-border{display: block;margin: 15px auto;width: 100%;border-bottom: 1px solid #ccc;}
+    	.adv-name{margin-bottom: 10px;color: #666;}
+    	.adv-share{display: block;margin:120px auto;text-align: center;}
+    	.adv-share>a{padding:10px 15px;;background-color: #0c0;color: #fff;font-size: 20px;}
+    	.adv-share>a:active{background-color: #080;}
+    	.bot{display: block;position: fixed;height: 50px;width: 100%;bottom: 0;background-color: #f44;}
+    	.bot *{color:#fff;width: 50%;float: left;text-align: center;height: 50px;line-height: 50px;}
+    </style>
+</head>
+<body>
+	<header id="header" class="mui-bar mui-bar-nav" style="box-shadow: none;">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title" id="adv-title"></h1>
+	</header>
+	<div class="mui-content">
+		<img class="adv-img" id="adpic"/>
+		<div class="adv-content">
+			<h3 class="adv-title" id="my-title"></h3>
+			<span class="adv-border"></span>
+			<p class="adv-txt" id="adv-txt"></p>
+			<!--<span class="adv-border"></span>
+			<p>商铺名称：<span id="shopname">微阿里</span></p>
+			<p>微信：<span id="weixin"></span></p>
+			<p>客服：<span id="tell"></span></p>
+			<p>邮箱：<span id="email"></span></p>
+			<p>地址：<span id="local"></span></p>
+			<p>网址：<a id="web"></a></p>
+			<p>最新活动：<span class="adv-txt" id="more">
+				最新介绍内容
+				最新介绍内容
+				最新介绍内容
+			</span></p>-->
+		</div>
+	</div>
+	<div class="bot">
+		<span id="shop-btn" style="background-color: #444;">联系商家</span>
+		<span id="share-btn">获取积分</span>
+	</div>
+</body>
+<script src="../js/config.js" type="text/javascript"></script>
+<script type="text/javascript" charset="utf-8">
+mui.init();
+var shares=null;
+var $title="";
+var $advid="";
+var $shpho="";
+document.addEventListener( "plusready", function(){
+	plus.share.getServices( function(s){
+		shares={};
+		for(var i in s){
+			var t=s[i];
+			shares[t.id]=t;
+		}
+	}, function(e){});
+	var $thisw=plus.webview.currentWebview(),
+		$title=$thisw.title,
+		$shpho=$thisw.shpho,
+		$adpic=$thisw.adpic;
+		$txt=$thisw.txt,
+		$advid=$thisw.advid;
+	document.getElementById('adpic').setAttribute('src',$adpic);
+	document.getElementById('adv-title').innerText=$title;
+	document.getElementById('my-title').innerText=$title;
+	document.getElementById('adv-txt').innerText=$txt;
+	
+	mui.getJSON($http+'userinfo_get.php',
+	{pho:$shpho},function(data){
+		document.getElementById('shop-btn').setAttribute('data-pho',$shpho);
+		document.getElementById('shop-btn').setAttribute('data-nik',data.val.nik);
+		document.getElementById('shop-btn').setAttribute('data-ico',data.val.icon);
+		/*document.getElementById('shopname').innerText=data.val.shopname;
+		document.getElementById('weixin').innerText=data.val.weixin;
+		document.getElementById('tell').innerText=data.val.tell;
+		document.getElementById('email').innerText=data.val.email;
+		document.getElementById('local').innerText=data.val.local;
+		document.getElementById('web').innerText=data.val.web;
+		document.getElementById('web').addEventListener('tap',function(){
+			plus.runtime.openweb(data.val.web);
+		});
+		document.getElementById('more').innerText=data.val.more;*/
+	}
+);
+	
+	document.getElementById('share-btn').addEventListener('tap',function(){
+		shareAction('weixin','WXSceneTimeline');
+	});
+	document.getElementById('shop-btn').addEventListener('tap',function(){
+		msg(document.getElementById('shop-btn'));
+		/*plus.storage.setItem('shpho',$shpho);
+		mui.openWindow({url:'shop.html',id:'shop',styles:{top:"0px",bottom:"0px"}, waiting:{autoShow:false}});*/
+	});
+},false);
+/**
+ * 分享操作
+ * _param {plus.share.ShareService} s
+ */
+function shareAction(id,ex) {
+	var s=null;
+	if(!id||!(s=shares[id])){
+		return;
+	}
+	if ( s.authenticated ) {
+		shareMessage(s,ex);
+	} else {
+		s.authorize( function(){
+				shareMessage(s,ex);
+			},function(e){
+			alert( "认证授权失败："+e.code+" - "+e.message );
+		});
+	}
+}
+function shareMessage(s,ex){
+	var msg={title: document.getElementById('my-title').innerText,content: 'nothing',extra:{scene:ex}};
+		msg.href=$share+"?type=adv&id="+$advid;
+		//msg.thumbs=["_www/logo.png"];
+	s.send( msg, function(){
+		mui.getJSON($http+'adv_re.php',{pho:String(plus.storage.getItem('pho')),advid:$advid},function(data){
+			if(data.status==0){
+				plus.nativeUI.toast("分享成功！获得"+data.val+"积分");
+			}
+			if(data.status==2){
+				plus.nativeUI.toast("已获得积分，不可重复获取！");
+			}
+			if(data.status==1){
+				plus.nativeUI.toast(data.msg);
+			}
+		});
+	}, function(e){
+		plus.nativeUI.toast("分享失败！积分获取失败！");
+	});
+}
+function msg($obj){
+	var $to=$obj.getAttribute('data-pho');
+	var $nik=$obj.getAttribute('data-nik');
+	var $icon=$obj.getAttribute('data-ico');
+	var $open=plus.webview.getWebviewById("chat"+$to);
+if($open){
+	plus.webview.show($open,"slide-in-right");
+	return;}
+mui.openWindow({
+    url:"chat.html",
+    id:"chat"+$to,
+    styles:{top:"0",bottom:"0"},extras:{to:$to,nik:$nik,icon:$icon},waiting:{autoShow:false}
+})}
+</script>
+</html>

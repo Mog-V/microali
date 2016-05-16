@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <script src="../js/mui.min.js"></script>
+    <link href="../css/mui.min.css" rel="stylesheet"/>
+    <style type="text/css">
+    	body{padding-bottom: 50px;}
+    	*{font-family: "微软雅黑";font-size: 24px;text-align: center;}
+    	h3{margin: 30px auto;color: #d34;}
+    	.bot{display: block;position: fixed;width: 100%;height: 50px;line-height: 50px;top: auto;bottom: 0;background-color: #d34;}
+    	.bot>a{display: inline-block;width: 50%;float: left;color: #fff;}
+    	.mui-table-view-cell *{color: #666 !important;font-size: 16px;}
+    </style>
+</head>
+<body>
+	<h3>开通会员</h3>
+	<p>您尚未开通会员，成为会员后方可享受更多功能</p>
+	<img style="width: 100%;" src="../img/vip_shop.png" />
+	<p>支付360元开通VIP红色商铺会员一年</p>
+	<p>享受特权：</p>
+	<p>★赠送积分5000</p>
+	<p>★开通商铺功能，积分收益提升</p>
+	<p>★现在开通立即赠送两年商铺VIP特权</p>
+	<img style="width: 100%;" src="../img/vip_lue.png" />
+	<p>支付980元开通VIP蓝色代理会员十年</p>
+	<p>享受特权：</p>
+	<p>★赠送积分10000</p>
+	<p>★享受所有商铺VIP特权</p>
+	<p>★成为直属代理会员，享受三级推广收益</p>
+	<p>★可开通团队，享受团队收益提成</p>
+	<div class="bot">
+		<a href="#pay-type" id="btn360">商铺会员</a>
+		<p style="position: absolute;top: 10px;left: 50%;width: 1px;height: 30px;background-color: #fff;"></p>
+		<a href="#pay-type" id="btn980">蓝色代理</a>
+	</div>
+<div id="pay-type" class="mui-popover mui-popover-action mui-popover-bottom" style="display: none;">
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<a id="pay-title">开通红色商铺会员360</a>
+				</li>
+				<li id="vbi" class="mui-table-view-cell">
+					<a href="#pay-type">微币抵用开通</a>
+				</li>
+				<li id="ali" class="mui-table-view-cell">
+					<a href="#pay-type">支付宝支付购买</a>
+				</li>
+			</ul>
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<a href="#pay-type"><b>取消</b></a>
+				</li>
+			</ul>
+		</div>
+</body>
+<script src="../js/config.js"></script>
+<script>
+      	mui.init();
+      	var channels=null;
+      	var type='';
+		// 监听plusready事件  
+		mui('body').on('shown', '.mui-popover', function(e) {});
+		mui('body').on('hidden', '.mui-popover', function(e) {});
+		document.addEventListener("plusready", function() {
+			// 扩展API加载完毕，现在可以正常调用扩展API
+			plus.payment.getChannels(function(s) {
+				for(var i in s){
+					if((s[i].id)=='alipay'){
+						channels=s[i];
+					};
+				};
+				if(channels.id!='alipay'){
+					plus.nativeUI.toast("未安装支付宝！");
+				}
+			}, function(e) {
+				plus.nativeUI.toast("获取支付通道列表失败：" + e.message);
+			});
+			document.getElementById('btn360').addEventListener('tap',function(){
+				document.getElementById('pay-title').innerText='开通红色商铺会员360';
+				type=1;
+			});
+			document.getElementById('btn980').addEventListener('tap',function(){
+				document.getElementById('pay-title').innerText='办理蓝色代理980';
+				type=0;
+			});
+			document.getElementById('vbi').addEventListener('tap',function(){
+				vbipay(type);
+			});
+			document.getElementById('ali').addEventListener('tap',function(){
+				requestPay(type);
+			});
+			
+		}, false);
+		function vbipay($type){
+			plus.nativeUI.showWaiting('请稍后...');
+		mui.getJSON($http+'userinfo_get.php',
+			{pho:plus.storage.getItem('pho')},function(data){
+			if(data.status==0){
+				if(data.val.vbi>=(($type==1)?360:980)){
+					mui.post($http+'vip_vbi_buy.php',{pho:plus.storage.getItem('pho'),type:$type},function(e){
+						plus.nativeUI.toast(e.msg);
+						plus.nativeUI.closeWaiting();
+						if(e.status==0){
+							plus.webview.getWebviewById('user.html').reload();
+							plus.webview.currentWebview().close();
+						}
+				},'json');
+				}else{
+					plus.nativeUI.closeWaiting();
+					plus.nativeUI.toast('微币余额不足，请先充值或使用支付宝支付！');
+				}
+			}else{
+				plus.nativeUI.closeWaiting();
+				plus.nativeUI.toast('网络请求错误！');
+			}
+			});
+		}
+		// 请求支付操作
+		function requestPay($type) {
+			var $total=980;
+			var $title="代理会员办理";
+			if($type==1){
+				$total=360;
+				$title="商铺会员办理";
+			}
+			mui.post($http+"ali_pay.php",{total:$total,title:$title},function(result){
+				plus.payment.request(channels,result,function(repay){
+					plus.nativeUI.toast("支付成功！");
+					mui.post($http+"vip_ali_buy.php",{pho:plus.storage.getItem('pho'),type:$type},function(data){
+								if(data.status==0){
+									plus.nativeUI.toast("会员已开通！");
+									plus.webview.getWebviewById('user.html').reload();
+									plus.webview.currentWebview().close();
+								}else{
+									plus.nativeUI.toast("支付成功,会员开通失败；请联系客服人工处理。");
+								}
+							},'json');
+				},function(error){
+						plus.nativeUI.toast("支付失败："+error.code);
+				});
+			});
+}
+</script>
+</html>

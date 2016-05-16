@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <link href="../css/style.css" rel="stylesheet"/>
+    <title>woqu</title>
+</head>
+<body>
+	<header class="mui-bar mui-bar-nav" id="header">
+		<a id="back" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		<h1 class="mui-title" id="nik">好友名称</h1>
+	</header>
+	<footer class="foot" style="background-color: #fff; box-shadow: 0 0 5px 0 rgba(0,0,0,.2) !important">
+		<div style="display: block;margin-top: 5px;margin-left: 5%;height:40px;width: 90%;border-bottom: 1px solid #D34;">
+			<textarea id="send-txt" autofocus="autofocus" placeholder="输入消息内容" style="width: 80%;height: 35px;border: none;"></textarea>
+			<a id="send-btn" style="display: block;position: absolute;width: 15%;height: 30px;line-height: 30px;text-align: center;border-radius: 3px;top: 10px;right: 5%;background-color: #D34;color: #fff;overflow: hidden;">发送</a>
+		</div>
+	</footer>
+</body>
+<script src="../js/mui.min.js"></script>
+<script src="../js/config.js"></script>
+<script type="text/javascript" charset="utf-8">
+mui.init();
+var xhr;
+var $to,$icon;
+var childw;
+document.addEventListener('plusready',function(){
+	$to=plus.webview.currentWebview().to;
+	$icon=plus.webview.currentWebview().icon;
+	childw=plus.webview.create( 'chat_content.html', 'chat_content'+$to, {top:'50px',bottom:'51px'},{to:$to,icon:$icon});
+	plus.webview.currentWebview().append(childw);
+var Context = plus.android.importClass("android.content.Context");
+var InputMethodManager = plus.android.importClass("android.view.inputmethod.InputMethodManager");
+var main = plus.android.runtimeMainActivity();
+var imm = main.getSystemService(Context.INPUT_METHOD_SERVICE);
+imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+	document.getElementById('nik').innerText=plus.webview.currentWebview().nik;
+	document.getElementById('send-btn').addEventListener('tap',function(){
+		var $msg=document.getElementById('send-txt').value;
+		if(!$msg){
+			plus.nativeUI.toast("不允许发送空消息！");
+			return;
+		}
+		mui.post($http+'chart_msg_send.php',
+		{pho:plus.storage.getItem('pho'),to:$to,msg:document.getElementById('send-txt').value},function(data){
+			plus.nativeUI.toast(data.msg);
+			if(data.status==0){
+				document.getElementById('send-txt').value='';
+				if(document.body.scrollHeight>500){
+					imm.toggleSoftInput(0,InputMethodManager.SHOW_FORCED);
+				}
+				document.getElementById('send-txt').focus();
+			}
+		},'json');
+	});
+});
+mui.back=function(){
+	plus.webview.close(childw);
+	plus.webview.currentWebview().close();
+}
+</script>
+</html>

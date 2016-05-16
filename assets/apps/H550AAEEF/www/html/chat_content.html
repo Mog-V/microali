@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <link href="../css/mui.min.css" rel="stylesheet"/>
+    <style type="text/css">
+    	*{background-color: #eee}
+    	.chat-time{clear: both;text-align: center;}
+    	.chat-list{margin-top:15px;width: 100%; border-radius: 10px;text-align: left;text-wrap: none;}
+    	.char-img{margin: 2.5%;width: 32px;height: 32px;background-image: url(../bacground/default_head.jpg);background-size: 100%;}
+    	.char-img>img{width: 100%;height: inherit;}
+    	.char-msg{width: 75%;background-color: #fff;border-radius: 5px;position: relative;box-shadow: 0 0 5px 0 rgba(0,0,0,.3);margin-bottom: 15px}
+    	.chat-list-left>*{float: left;}
+    	.chat-list-right>*{float: right;}
+    	.chat-list-right>.char-msg{background-color: #DD3344;color: #fff;}
+    	.char-msg-txt{padding: 10px;background-color: transparent;color: inherit;font-size: 16px;}
+    	.chat-list-left>.char-msg:before{content: "";width:8px;height: 8px;border-radius: 2px;transform: rotate(45deg);-webkit-transform:rotate(45deg);position: absolute;top: 10px;left: -4px;background-color: #fff;box-shadow: 0 0 1px 0 rgba(0,0,0,.3);z-index: 0;}
+    	.chat-list-left>.char-msg:after{content: "";width: 6px;height: 20px;position: absolute;top: 5px;left:0;background-color: #fff;z-index: 1;}
+    	.chat-list-right>.char-msg:before{content: "";width:8px;height: 8px;border-radius: 2px;transform: rotate(45deg);-webkit-transform:rotate(45deg);position: absolute;top: 10px;right: -4px;background-color: #D34;box-shadow: 0 0 1px 0 rgba(0,0,0,.3);z-index: 0;}
+    	.chat-list-right>.char-msg:after{content: "";width: 6px;height: 20px;position: absolute;top: 5px;right:0;background-color: #D34;z-index: 1;}
+    	.chat-list:after{content: "";clear: both;}
+    </style>
+</head>
+<body>
+<div id="refreshContainer" class="mui-content mui-scroll-wrapper" id="chatcot">
+  <div class="mui-scroll" id="chatmain">
+	<!--<div class="chat-list chat-list-right">
+		<div class="char-img">
+			<img src="../bacground/default_head.jpg" />
+		</div>
+		<div class="char-msg">
+			<p class="char-msg-txt">消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息</p>
+		</div>
+		<div class="char-cot"></div>
+	</div>-->
+  </div>
+</div>
+<script src="../js/mui.min.js"></script>
+<script src="../js/config.js"></script>
+<script>
+mui.init();
+var bftime=0,time=0,$to,$icon,timefunction;
+mui.init({
+  pullRefresh : {
+    container:"#refreshContainer",//下拉刷新容器标识，querySelector能定位的css选择器均可，比如：id、.class等
+    down : {
+      contentdown : "查看历史消息",//可选，在下拉可刷新状态时，下拉刷新控件上显示的标题内容
+      contentover : "释放立即加载",//可选，在释放可刷新状态时，下拉刷新控件上显示的标题内容
+      contentrefresh : "正在加载...",//可选，正在刷新状态时，下拉刷新控件上显示的标题内容
+      callback :get //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
+    }
+  }
+});
+document.addEventListener('plusready',
+function() {
+	var $thisw=plus.webview.currentWebview();
+		$to=$thisw.to;
+		$icon=$thisw.icon;
+	var $page=-1;
+	if(document.querySelector('.chat-list')&&document.querySelector('.chat-list').getAttribute('data-id')){
+		$page=document.querySelector('.chat-list').getAttribute('data-id');
+	}
+	mui.getJSON($http+'chart_msg_get.php',
+	{pho:plus.storage.getItem('pho'),to:$to,page:$page},function(data){
+		if(data.status==0){
+			for (var i=0;i<data.val.length;i++) {
+				if(bftime==0){
+					var $p=document.createElement('p');
+						$p.id='chat-list-child';
+						$p.className='chat-time';
+						$p.innerText='-------------以上是历史消息-------------';
+					document.getElementById("chatmain").insertBefore($p,document.getElementById('chat-list-child'));
+				}
+				var $li=document.createElement('div');
+					$li.id='chat-list-child';
+					$li.setAttribute('data-id',data.val[i].id);
+				if(data.val[i].pho==plus.storage.getItem('pho')){
+					$li.className='chat-list chat-list-left';
+					var $html='<div class="char-img"><img src="'+$http+'icon/'+$icon+'"/></div>';
+				}else{
+					$li.className='chat-list chat-list-right';
+					var $html='<div class="char-img"><img src="'+$http+'icon/'+plus.storage.getItem('icon')+'"/></div>';
+				}
+					$html+='<div class="char-msg"><p class="char-msg-txt">'+data.val[i].msg+'</p></div>';
+					$html+='<div class="char-cot"></div>';
+					$li.innerHTML=$html;
+					document.getElementById("chatmain").insertBefore($li,document.getElementById('chat-list-child'));
+				if(data.val[i].time!=bftime){
+					var $p=document.createElement('p');
+						$p.id='chat-list-child';
+						$p.className='chat-time';
+						$p.innerText=data.val[i].time;
+						document.getElementById("chatmain").insertBefore($p,document.getElementById('chat-list-child'));
+						bftime=data.val[i].time;
+				}
+				document.body.scrollTop=document.body.scrollHeight;
+			}
+		}});
+		setTimeout(function(){setInterval(function() {
+	mui.getJSON($http + 'chart_msg_new.php', {
+		pho: plus.storage.getItem('pho'),
+		to: $to
+	}, function(data) {
+		if (data.status == 0) {
+			if (data.val.length == 0) {
+				return;
+			}
+			for (var i = 0; i < data.val.length; i++) {
+				if (time != data.val[i].time) {
+					var $p = document.createElement('p');
+					$p.id = 'chat-list-child';
+					$p.className = 'chat-time';
+					$p.innerText = data.val[i].time;
+					document.getElementById("chatmain").appendChild($p);
+					time = data.val[i].time;
+				}
+				var $li = document.createElement('div');
+				$li.id = 'chat-list-child';
+				$li.setAttribute('data-id', data.val[i].id);
+				if (data.val[i].pho == plus.storage.getItem('pho')) {
+					plus.device.vibrate('100');
+					$li.className = 'chat-list chat-list-left';
+					var $html = '<div class="char-img"><img src="'+$http+'icon/'+ $icon + '"/></div>';
+				} else {
+					$li.className = 'chat-list chat-list-right';
+					var $html = '<div class="char-img"><img src="'+$http+'icon/'+ plus.storage.getItem('icon') + '"/></div>';
+				}
+				$html += '<div class="char-msg"><p class="char-msg-txt">' + data.val[i].msg + '</p></div>';
+				$html += '<div class="char-cot"></div>';
+				$li.innerHTML = $html;
+				document.getElementById("chatmain").appendChild($li);
+				document.body.scrollTop = document.body.scrollHeight;
+			}
+		}
+	});
+},1000);},2000);
+});
+
+function get() {
+	var $page = -1;
+	if (document.querySelector('.chat-list')&&document.querySelector('.chat-list').getAttribute('data-id')){
+		$page=document.querySelector('.chat-list').getAttribute('data-id');
+	}
+	mui.getJSON($http+'chart_msg_get.php',
+	{pho:plus.storage.getItem('pho'),to:$to,page:$page},function(data){
+		if(data.status==0){
+			if(data.val.length==0){
+				if($page=document.querySelector('.chat-time').getAttribute('data-no')){
+					return;
+				}
+				var $p=document.createElement('p');
+						$p.id='chat-list-child';
+						$p.className='chat-time';
+						$p.setAttribute('data-no','no');
+						$p.innerText='-------------没有更多消息了-------------';
+					document.getElementById("chatmain").insertBefore($p,document.getElementById('chat-list-child'));
+			}
+			for (var i=0;i<data.val.length;i++) {
+				if(bftime==0){
+					var $p=document.createElement('p');
+						$p.id='chat-list-child';
+						$p.className='chat-time';
+						$p.innerText='-------------以上是历史消息-------------';
+					document.getElementById("chatmain").insertBefore($p,document.getElementById('chat-list-child'));
+				}
+				var $li=document.createElement('div');
+					$li.id='chat-list-child';
+					$li.setAttribute('data-id',data.val[i].id);
+				if(data.val[i].pho==plus.storage.getItem('pho')){
+					$li.className='chat-list chat-list-left';
+					var $html='<div class="char-img"><img src="'+$http+'icon/'+$icon+'"/></div>';
+				}else{
+					$li.className='chat-list chat-list-right';
+					var $html='<div class="char-img"><img src="'+$http+'icon/'+plus.storage.getItem('icon')+'"/></div>';
+				}
+					$html+='<div class="char-msg"><p class="char-msg-txt">'+data.val[i].msg+'</p></div>';
+					$html+='<div class="char-cot"></div>';
+					$li.innerHTML=$html;
+					document.getElementById("chatmain").insertBefore($li,document.getElementById('chat-list-child'));
+				if(data.val[i].time!=bftime){
+					var $p=document.createElement('p');
+						$p.id='chat-list-child';
+						$p.className='chat-time';
+						$p.innerText=data.val[i].time;
+						document.getElementById("chatmain").insertBefore($p,document.getElementById('chat-list-child'));
+						bftime=data.val[i].time;
+				}
+					}
+		}});
+	mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <script src="../js/mui.min.js"></script>
+    <script src="../js/config.js"></script>
+    <link rel="stylesheet"href="../css/style.css"/>
+    <style type="text/css">
+    *{background-color: #fff !important;}
+    .mui-content{background-color: #fff;margin: 50px auto;padding: 55px 10px 50px 10px !important;}
+    .mui-bar-nav>*{color: #D34;}
+    .mui-active{color: #D34 !important;}
+    .mui-content{background-color: #fff;padding: 10px !important;}
+    .mui-bar-nav>*{color: #D34;}
+    .mui-active{color: #D34 !important;}
+    .dsc-cot{position: relative;padding-left: 18%;width: auto;}
+    .dsc-head{position: absolute;left: 0px;width: 45px;height: 45px;border-radius: 50%;background-image:url(../bacground/default_head.jpg);background-size: 45px 45px;}
+    .dsc-top{margin-top: 5px;margin-bottom:10px;}
+    .dsc-nikname{font-size: 16px;font-weight: bold;color: #666;max-width: 40%;overflow: hidden;}
+    .dsc-time{float: right;color: #888;font-size: 14px;max-width: 40%;overflow: hidden;}
+    #time{font-size: 14px;}
+    .dsc-time>i{margin-right: 10px;color: #0c0;font-size: 18px;}
+    .img-cot{overflow-x: scroll;}
+    .dsc-img-list{display: inline;height: 80px;width: 80px;margin-right: 5px}
+    .icon-map-marker{float: right;color: #888;font-size: 14px;}
+    .icon-map-marker>span{margin-left: 7px;}
+    .dsc-msg{margin-top: 50px;padding-top: 10px;border-top: 1px solid #ccc;}
+    .msg-list{position: relative;padding-left: 50px;}
+    .msg-head{position: absolute;top:0;left: 0;width: 35px;height: 35px;border-radius: 50%;background-image:url(../bgimg/default_head.jpg);background-size: 35px 35px;}
+   .dsc-cot>#txt{width: 100%;white-space: pre-wrap;text-wrap: normal;max-height: none;}
+    .msg-del{position: absolute;right: 5px;bottom: 0;color: #888;font-size: 11px;}
+    .glarry-mask{display: block;position: fixed;top: 0;bottom: 0;left: 0;right: 0;background-color: rgba(0,0,0,.95);z-index: 998;}
+    .glarry-page{display: block;position: absolute;width: 100%;bottom: 15px;color: #fff;text-align: center;}
+    .glarry-img{display: block;width: auto;height: auto;}
+    #glarry-close{position: absolute;right: 15px;top: 5px;font-size: 32px;color: #fff;}
+    </style>
+</head>
+<body>
+<header class="mui-bar mui-bar-nav">
+	<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	<h1 class="mui-title">详细内容</h1>
+</header>
+<div class="mui-content" id="cot" style="display: none;">
+	<div class="dsc-cot">
+		<img class="dsc-head" id="icon"/>
+		<div class="dsc-top">
+			<span class="dsc-nikname" id="nik"></span>
+			<time class="dsc-time"><i class="icon-time"></i><span id="time"></span></time>
+		</div>
+		<div class="img-cot">
+		<div class="dsc-img" id="img">
+		</div>
+		</div>
+		<p class="dsc-txt" id="txt">
+		</p>
+		<i class="icon-map-marker" id="local"><span>
+		</span></i>
+	</div>
+	<div class="dsc-msg">
+		<p><span id='msg-num'>5</span>条评论</p>
+		<div id="dsc-msg"></div>
+	</div>
+</div>
+<nav class="mui-bar mui-bar-tab">
+	<a id="zan" class="mui-tab-item mui-active zan" href="main.html">
+		<span class="mui-icon icon-thumbs-up"></span>
+		<span class="mui-tab-label">赞</span>
+	</a>
+	<a id="pin" class="mui-tab-item pin" href="contact.html">
+		<span class="mui-icon mui-icon-chatboxes"></span>
+		<span class="mui-tab-label">留言</span>
+	</a>
+</nav>
+<div class="mui-slider glarry-mask" id="glarry-frm" style="display: none;">
+	<div class="mui-slider-group" id="glarry-cot">
+	</div>
+	<i class="icon-remove" id="glarry-close"></i>
+	<div class="glarry-page">
+		<span id="page">1</span>/<span id="pageall">22</span>
+	</div>
+</div>
+</body>
+<script type="text/javascript" charset="utf-8">
+	var $bbsid=null;
+	mui.init();
+	mui.back = function(){
+	var	$thisw=plus.webview.currentWebview();
+		$thisw.hide();
+		setTimeout(function(){
+			$thisw.close();
+		},1000);
+	}
+document.addEventListener("plusready", function() {
+	var $thisw=plus.webview.currentWebview(),
+		$bbsid=$thisw.bbsid;
+		bbsmsg($bbsid);
+	mui.getJSON($http+'bbs_list.php',{bbsid:$bbsid},function(data){
+		document.getElementById('nik').innerText=data.val.nik;
+		document.getElementById('icon').src=$http+"icon/"+data.val.icon;
+		document.getElementById('time').innerText=data.val.time;
+		document.getElementById('txt').innerText=data.val.txt;
+		document.getElementById('local').innerText=data.val.local;
+		document.getElementById('img').style.width=data.val.img.length*85+"px";
+		for (var i=0;i<data.val.img.length;i++) {
+			var img=document.createElement('img');
+				img.className='dsc-img-list';
+				img.setAttribute('src',$http+'bbs/'+data.val.img[i]);
+			document.getElementById('img').appendChild(img);
+		}
+		document.getElementById('cot').style.display="block";
+	});
+	document.querySelector(".zan").addEventListener('tap',function(){
+	mui.getJSON($http+'bbs_zan.php',{bbsid:$bbsid,pho:plus.storage.getItem('pho')},function(data){
+		plus.nativeUI.toast(data.msg);
+	});
+});
+document.getElementById("pin").addEventListener('tap',function(){
+		mui.openWindow({url:"bbsmsg.html",id:"bbsmsg.html",
+    	styles:{top:"0",bottom:"0",},extras:{bbsid:$bbsid},waiting:{autoshow:false}});
+	});
+});
+	function bbsmsg($bbsid){
+		document.getElementById('dsc-msg').innerHTML="";
+		mui.getJSON($http+'bbs_getpin.php',{bbsid:$bbsid},function(data){
+		if(data.status==0){
+			document.getElementById('msg-num').innerText=data.val.length;
+			for(var i=0;i<data.val.length;i++){
+				var div=document.createElement('div');
+					div.className="msg-list";
+				var $html="<img class='msg-head' src='"+$http+'icon/'+data.val[i].icon+"' />";
+					$html+="<div class='dsc-top'><span class='dsc-nikname'>"+data.val[i].nik+"</span>";
+					$html+="<time class='dsc-time'><i class='icon-time'></i>"+data.val[i].time+"</time></div>";
+					$html+="<p class='msg-txt'>"+data.val[i].bbsmsg+"</p>";
+					if(data.val[i].pho==plus.storage.getItem('pho')){
+						$html+="<a id='"+data.val[i].msgid+"' class='msg-del' onclick='bbsmsgdel()'>删除</a></div>";
+					}else{
+						$html+="</div>";
+					}
+					div.innerHTML=$html;
+					document.getElementById('dsc-msg').appendChild(div);
+			}
+		}
+	});
+	}
+	function bbsmsgdel(){
+		var $bbsmsgid=event.srcElement.id;
+		mui.getJSON($http+'bbs_msg_del.php',{bbsmsgid:$bbsmsgid},function(data){
+			if(data.status==0){
+				plus.nativeUI.toast('删除成功');
+				plus.webview.currentWebview().reload();
+			}
+		});
+	}
+	
+	mui('#img').on("tap",'img',function(e){
+		document.getElementById('glarry-cot').innerHTML="";
+		var imgc=document.getElementById('img').childNodes;
+		var nodei=0;
+		for (var i=0;i<imgc.length;i++) {
+			if(imgc[i].nodeType==1){
+				glarrysize(imgc[i].getAttribute('src'));
+				nodei++;
+			}
+		}
+		document.getElementById('pageall').innerText=nodei;
+		document.getElementById('glarry-frm').style.display="block";
+	});
+	
+	document.getElementById('glarry-close').addEventListener('tap',function(){
+		document.getElementById('glarry-frm').style.display="none";
+	});
+	
+	document.querySelector('.mui-slider').addEventListener('slide', function(event) {
+		document.getElementById('page').innerText=event.detail.slideNumber+1;
+	});
+	
+	function glarrysize(imgsrc){
+		var winw=document.body.offsetWidth;
+		var winh=document.body.scrollHeight;
+		var ig=document.createElement('img');
+			ig.setAttribute('src',imgsrc);
+			ig.className="glarry-img";
+		var div=document.createElement('div');
+			div.className='mui-slider-item mui-control-content';
+		var img=new Image();
+		img.src=imgsrc;	
+		img.onload=function(){
+			var imgw = this.width;
+			var imgh = this.height;
+			if(((imgh/imgw)/(winh/winw))>=1){
+				ig.style.height=winh+"px";
+				ig.style.width=winh*imgw/imgh+"px";
+				div.style.paddingLeft=parseInt((winw-winh*imgw/imgh)/2)+"px";
+			}else{
+				ig.style.width=winw+"px";
+				ig.style.height=imgh*winw/imgw+"px";
+				div.style.paddingTop=parseInt(winh-imgh*winw/imgw)/2+"px";
+			}
+				div.appendChild(ig);
+				document.getElementById('glarry-cot').appendChild(div);
+				return true;
+		}
+	}
+</script>
+</html>

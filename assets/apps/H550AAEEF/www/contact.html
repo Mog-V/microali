@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <script src="js/mui.min.js"></script>
+    <link href="css/mui.min.css" rel="stylesheet"/>
+    <style type="text/css">
+    	*{font-size: 16px;}
+    	p{margin: 0;}
+    	.mui-slider{background-color: #fff;}
+    	.mui-content{display: block;position: fixed;top: 0;bottom: 0;left: 0;right: 0;}
+    	.mui-slider{height: 100%;}
+    	.mui-slider-group{height: 100%;}
+    	.mui-slider-item{height: 100%;}
+    	img{background-image: url(img/head_default.png);background-size: 100%;}
+    	.pop-list{height: 80px; width: 100%;padding: 10px;border-bottom: 1px solid #eee;overflow: hidden;}
+    	.pop-head{display: inline-block;height: 60px;width: 60px !important;border-radius: 15px;float: left;}
+    	.pop-cot{display: inline-block;margin-left: 10px;float: left;width: 200px;height: 60px;}
+    	.pop-nik{padding: 10px;font-size: 16px;}
+    	.pop-icon{margin-top: -5px;padding-left: 10px;}
+    	.pop-icon>img{width: 20px !important;height: 20px !important;margin-right: 5px !important;background-image: none;}
+    	.pop-icon>.age{display: inline-block;height: 20px;line-height: 20px;font-size: 14px;margin-right: 5px;}
+    	.pop-right{display: inline-block;float: right;width: 50px;height: 60px;overflow: hidden;text-align: right;}
+    	.mui-scroll{padding-bottom: 38px}
+    	.add-btn{border: 1px solid #ccc; border-radius: 5px;text-align: center;}
+    	.mui-badge{color: #fff;background-color: #d34;}
+    </style>
+</head>
+<body>
+<div class="mui-content">
+<div class="mui-slider">
+    <!--选项卡标题区-->
+    <div class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted mui-segmented-control-negative">
+      <a class="mui-control-item" href="#item1">消息</a>
+      <a class="mui-control-item mui-active" href="#item2">好友</a>
+      <a class="mui-control-item" href="#item3">团队建设</a>
+    </div>
+    <div class="mui-slider-progress-bar mui-col-xs-4"></div>
+    <div class="mui-slider-group">
+      <!--第一个选项卡内容区-->
+<div id="item1" class="mui-slider-item mui-control-content">
+	<div class="mui-scroll-wrapper">
+		<div class="mui-scroll">
+			<ul class="mui-table-view mui-table-view-chevron">
+				<ul class="mui-table-view mui-table-view-chevron" id="msgl">
+				</ul>
+			</ul>
+		</div>
+	</div>
+</div>
+      <!--第二个选项卡内容区，页面加载时为空-->
+      <div id="item2" class="mui-slider-item mui-control-content mui-active">
+      	<div class="mui-scroll-wrapper"><div class="mui-scroll">
+      	<ul class="mui-table-view mui-table-view-chevron">
+<li class="mui-table-view-cell mui-collapse"><a class="mui-navigate-right">我的人脉</a>
+	<ul class="mui-table-view mui-table-view-chevron" id="friend">
+		
+	</ul>
+</li>
+<li class="mui-table-view-cell mui-collapse" style="height: 100%;"><a class="mui-navigate-right">附近</a>
+	<ul class="mui-table-view mui-table-view-chevron" id="localuser">
+	</ul>
+</li>
+<li class="mui-table-view-cell mui-collapse" style="height: 100%;"><a class="mui-navigate-right">二度人脉</a>
+	<ul class="mui-table-view mui-table-view-chevron" id="localuser">
+		<li style="text-align: center;">
+			当前未开通
+		</li>
+	</ul>
+</li>
+</ul></div></div>
+      </div>
+      <!--第三个选项卡内容区，页面加载时为空-->
+      <div id="item3" class="mui-slider-item mui-control-content"></div>
+    </div>
+  </div>
+</div>
+</body>
+<script src="js/config.js"></script>
+<script>
+mui.init();
+mui('.mui-scroll-wrapper').scroll();
+document.addEventListener('plusready',function(){
+	mui.getJSON($http+'chat_friend_get.php',
+	{pho:plus.storage.getItem('pho')},function(data){
+		if (data.status==0) {
+			for (var i=0;i<data.val.length;i++) {
+				var $nik=data.val[i].nik;
+				var li=document.createElement('li');
+				li.className="pop-list";
+				li.setAttribute('data-pho',data.val[i].pho);
+				li.setAttribute('data-nik',data.val[i].nik);
+				li.setAttribute('data-ico',data.val[i].icon);
+				li.addEventListener('tap',function(){
+					msg(this);
+				});
+				var $html='<img class="pop-head" src="'+$http+'icon/'+data.val[i].icon+'">';
+				$html+='<div class="pop-cot"><p class="pop-nik">';
+				$html+=data.val[i].nik;
+				$html+='</p><p class="pop-icon">';
+				if(data.val[i].age>0){
+					$html+='<span class="age">'+data.val[i].age+'岁</span>';
+				}
+				if(data.val[i].sex==1){
+					$html+='<img src="img/woman.png"/>';	
+				}else{
+					$html+='<img src="img/man.png"/>';
+				}
+				if(data.val[i].isman==1){
+					$html+='<img src="img/isman.png"/>';
+				}
+				if(data.val[i].isshop==1){
+					$html+='<img src="img/isshop.png"/>';
+				}
+				if(data.val[i].level==1){
+					$html+='<img src="img/v1.png"/>';
+				}
+				if(data.val[i].level==2){
+					$html+='<img src="img/v2.png"/>';
+				}
+				$html+='</p></div>';
+				$html+='<div class="pop-right"></div>';
+				li.innerHTML=$html;
+				document.getElementById('friend').appendChild(li);
+			}} 
+	});
+	mui.getJSON($http+'chat_get_near.php',
+	{lon:plus.storage.getItem('lon'),lat:plus.storage.getItem('lat')},function(data){
+		if (data.status==0) {
+			for (var i=0;i<data.val.length;i++) {
+				var $nik=data.val[i].nik;
+				var li=document.createElement('li');
+				li.className="pop-list";  
+				li.setAttribute('data-pho',data.val[i].pho);
+				li.setAttribute('data-nik',data.val[i].nik);
+				li.setAttribute('data-ico',data.val[i].icon);
+				li.addEventListener('tap',function(){
+					msg(this);
+				});
+				var $html='<img class="pop-head" src="'+$http+'icon/'+data.val[i].icon+'">';
+				$html+='<div class="pop-cot"><p class="pop-nik">';
+				$html+=data.val[i].nik;
+				$html+='</p><p class="pop-icon">';
+				if(data.val[i].age>0){
+					$html+='<span class="age">'+data.val[i].age+'岁</span>';
+				}
+				if(data.val[i].sex==1){
+					$html+='<img src="img/women.png"/>';	
+				}else{
+					$html+='<img src="img/man.png"/>';
+				}
+				if(data.val[i].isman==1){
+					$html+='<img src="img/isman.png"/>';
+				}
+				if(data.val[i].isshop==1){
+					$html+='<img src="img/isshop.png"/>';
+				}
+				if(data.val[i].level==1){
+					$html+='<img src="img/v1.png"/>';
+				}
+				if(data.val[i].level==2){
+					$html+='<img src="img/v2.png"/>';
+				}
+				$html+='</p></div>';
+				$html+='<div class="pop-right"><p>'+data.val[i].juli+'</p></div>';
+				li.innerHTML=$html;
+				document.getElementById('localuser').appendChild(li);
+		 	}} 
+	});
+		
+	var $msgarr=new Array();
+	setInterval(function(){
+	mui.getJSON($http+'chat_get_msg.php',
+	{pho:plus.storage.getItem('pho')},function(data){
+		if (data.status==0) {
+			for (var i=0;i<data.val.length;i++) {
+				////////////////////////////////////////////////
+				if(!document.getElementById('add-'+data.val[i].mid) && data.val[i].type==1){
+					var li=document.createElement('li');
+						li.id='add-'+data.val[i].mid;
+						li.className="pop-list";
+					var $html='<img class="pop-head" src="'+$http+'icon/'+data.val[i].icon+'">';
+						$html+='<div class="pop-cot"><p class="pop-nik">';
+						$html+=data.val[i].nik;
+						$html+='</p><p class="pop-icon">好友添加申请</p></div>';
+						$html+='<div class="pop-right"><p>'+data.val[i].time+'</p><p data-upho="'+data.val[i].pho+'" class="add-btn" onclick="add(this)">同意</p></div>';
+						li.innerHTML=$html;
+					document.getElementById('msgl').appendChild(li);
+					plus.device.vibrate();
+				}
+				/////////////好友添加申请！
+				if(data.val[i].type==0){
+					if(!document.getElementById('fd-'+data.val[i].pho)){
+					var li=document.createElement('li');
+						li.className="pop-list";
+						li.setAttribute('data-pho',data.val[i].pho);
+						li.setAttribute('data-nik',data.val[i].nik);
+						li.setAttribute('data-ico',data.val[i].icon);
+						li.addEventListener('tap',function(){
+							msg(this);
+						});
+						var $html='<img class="pop-head" src="'+$http+'icon/'+data.val[i].icon+'">';
+							$html+='<div class="pop-cot"><p class="pop-nik">';
+							$html+=data.val[i].nik;
+							$html+='</p><p class="pop-icon">未读信息</p></div>';
+							$html+='<div class="pop-right"><p id="fdt-'+data.val[i].pho+'">'+data.val[i].time+'</p><p><span id="fd-'+data.val[i].pho+'" class="mui-badge">'+data.val[i].num+'</span></p></div>';
+							li.innerHTML=$html;
+							document.getElementById('msgl').appendChild(li);
+							plus.device.vibrate();
+					}else{
+						if(parseInt(document.getElementById('fd-'+data.val[i].pho).innerText)!=data.val[i].num){
+						if(parseInt(document.getElementById('fd-'+data.val[i].pho).innerText)<data.val[i].num){
+							plus.device.vibrate();
+						}
+						document.getElementById('fdt-'+data.val[i].pho).innerText=data.val[i].time;
+						document.getElementById('fd-'+data.val[i].pho).innerText=data.val[i].num;
+						}}}
+			}}
+	});
+	},1000);
+});
+function add($obj){
+	mui.getJSON($http+'chat_add_cof.php',
+	{pho:plus.storage.getItem('pho'),mid:$obj.id,upho:$obj.getAttribute('data-upho')},function(data){
+		plus.nativeUI.toast(data.msg);
+		if(data.status!=1){
+			plus.webview.currentWebview().reload();
+		}
+	});
+}
+
+//发送消息
+function msg($obj){
+	var $to=$obj.getAttribute('data-pho');
+	var $nik=$obj.getAttribute('data-nik');
+	var $icon=$obj.getAttribute('data-ico');
+	var $open=plus.webview.getWebviewById("chat"+$to);
+	if(document.getElementById('fd-'+$to)){
+		document.getElementById('fd-'+$to).innerText=0;
+	}
+if($open){
+	plus.webview.show($open,"slide-in-right");
+	return;}
+mui.openWindow({
+    url:"html/chat.html",
+    id:"chat"+$to,
+    styles:{top:"0",bottom:"0"},extras:{to:$to,nik:$nik,icon:$icon},waiting:{autoShow:false}
+})}
+</script>
+</html>

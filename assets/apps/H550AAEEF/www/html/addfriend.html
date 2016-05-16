@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <script src="../js/mui.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <style type="text/css">
+    	*{font-family: "微软雅黑";font-size: 24px;color: #000;}
+    	.bill-list{width: 100%;height: 84px;border-bottom: 1px solid #ddd;position: relative;}
+		.bill-list>img{position: absolute;top: 12px;left: 5%;width: 60px;height: 60px;border-radius: 50%;overflow: hidden;background-image: url(../img/head_default.png);}
+		.bill-list>p{position: absolute;width: 40%;height: 84px;line-height: 84px;left: 25%;color: #666;font-size: 16px;text-align: center;overflow: hidden;}
+		.bill-list>span{position: absolute;width: 60px;border-radius: 5px;border: 1px solid #ccc;top:27px;right: 5%;height:30px;line-height: 30px;color: #666;text-align: right;font-size: 18px;text-align: center;}
+    </style>
+</head>
+<body style="background-color: #eee;">
+	<header id="header" class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title" id="adv-title">添加好友</h1>
+	</header>
+	<div style="position: fixed;top: 50px;bottom: 0;left: 0;right: 0;">
+		<div class="mui-scroll-wrapper">
+			<div class="mui-scroll">
+		<div style="position: relative;height: 80px;background-color: #eee;">
+			<input id="pho" type="num" placeholder="请输入好友手机号码" style="width: 90%;height: 42px;margin: 15px 5%;padding: 0 15px;border-radius: 5px;border: 1px solid #ccc; color: #888;" />
+			<i id="chat_find" class="icon-search" style="position: absolute;top: 24px;right: 8%;color: #888;"></i>
+		</div>
+		<div style="background-color: #eee;height: 100px;">
+			<div style="width: 33.33%;text-align: center;float: left;">
+				<img src="../img/weixin.png" style="background-color: transparent;border-radius: 50%;"/>
+				<p style="text-align: center;">微信好友</p>
+			</div>
+			<div style="width: 33.33%;text-align: center;float: left;">
+				<img src="../img/qq.png" style="background-color: transparent;border-radius: 50%;"/>
+				<p style="text-align: center;">QQ好友</p>
+			</div>
+			<div style="width: 33.33%;text-align: center;float: left;">
+				<img src="../img/contact.png" style="background-color: transparent;border-radius: 50%;"/>
+				<p style="text-align: center;">通讯录好友</p>
+			</div>
+		</div>
+		<div class="">
+			<p style="height: 38px;line-height: 38px;padding-left: 5%;background-color: #0bf;color: #fff;">推荐好友</p>
+			<div id="find-cot">
+			<div class="bill-list">
+				<img src="../img/head_default.png"/>
+				<p>阿斯顿内塞</p>
+				<span>
+					添加					
+				</span>
+			</div>
+			<div class="bill-list">
+				<img src="../img/head_default.png"/>
+				<p>阿斯顿内塞</p>
+				<span class="bill-list-info">
+					添加					
+				</span>
+			</div>
+			<div class="bill-list">
+				<img src="../img/head_default.png"/>
+				<p>阿斯顿内塞</p>
+				<span class="bill-list-info">
+					添加					
+				</span>
+			</div>
+			<div class="bill-list">
+				<img src="../img/head_default.png"/>
+				<p>阿斯顿内塞</p>
+				<span class="bill-list-info">
+					添加					
+				</span>
+			</div>
+			<div class="bill-list">
+				<p>没有找到.......</p>
+			</div>
+			</div>
+		</div>
+		</div>
+		</div>
+	</div>
+</body>
+<script src="../js/config.js" type="text/javascript"></script>
+<script type="text/javascript" charset="utf-8">
+      	mui.init();
+      	mui('.mui-scroll-wrapper').scroll();
+      	document.addEventListener('plusready',function(){
+      		document.getElementById('chat_find').addEventListener('tap',function(){
+      			mui.getJSON($http+'chat_find_user.php',{pho:document.getElementById('pho').value},function(data){
+      				plus.nativeUI.toast(data.msg);
+      				if(data.status==0){
+      					var $html='<div class="bill-list">';
+      						$html+='<img src="http://www.wedams.com/app/ajax/icon/'+data.val.icon+'"/>';
+      						$html+='<p>'+data.val.nik+'</p>';
+      						$html+='<span class="bill-list-info" data-to="'+data.val.pho+'" onclick="add(this)">添加</span></div>';
+      					document.getElementById('find-cot').innerHTML=$html;
+      				}
+      				if(data.status==2){
+      					document.getElementById('find-cot').innerHTML='<div class="bill-list"><p>没有找到.......</p></div>';
+}
+});
+});
+});
+
+function add($obj) {
+	if(plus.storage.getItem('pho')==$obj.getAttribute('data-to')){
+		plus.nativeUI.toast('不能添加自己！');
+		return;
+	}
+		mui.post($http+'chat_add_user.php',
+		{pho:plus.storage.getItem('pho'),to:$obj.getAttribute('data-to'),type:'1'},function(data){
+			plus.nativeUI.toast(data.msg);
+			if(data.status==0||data.status==2){
+			$obj.innerText="已添";
+			}
+		},'json');
+}
+</script>
+</html>

@@ -1,0 +1,663 @@
+Manifest-Version: 1.0
+Created-By: 1.6.0_45 (Sun Microsystems Inc.)
+
+Name: assets/logo_h.png
+SHA1-Digest: NiIXDIWMhuIXwHmFVSalyGsn3g0=
+
+Name: assets/iflytek_skin/btn_left_n.png
+SHA1-Digest: Uy9Kt1Bqugq7rPUEFvWv//80UCk=
+
+Name: assets/apps/H550AAEEF/www/js/top.js
+SHA1-Digest: bHNrnpoMSxFa1/5pbyd9OM/Acaw=
+
+Name: assets/iflytek_skin/stop.png
+SHA1-Digest: ht5xRYY33N/ipK491p80D+qv82U=
+
+Name: assets/data/properties.xml
+SHA1-Digest: DUYrLDlpZyZMJXUXymYaIsX5p1c=
+
+Name: assets/iflytek_skin/btn_left_f.png
+SHA1-Digest: p/1cIoJGJd/H8v6H8sAT8F4MpEg=
+
+Name: assets/place/star_gray.png
+SHA1-Digest: ZhunaWgBCc8swMOBU+nJhSW/njg=
+
+Name: assets/iflytek_skin/btn_left_d.png
+SHA1-Digest: CcsNkIkH5AOGxMiFfeSxGk5yLvA=
+
+Name: assets/iflytek_skin/recognizer.xml
+SHA1-Digest: eX1eSzc3xJj5quCG9p9/uz9bm5I=
+
+Name: assets/apps/H550AAEEF/www/css/font.css
+SHA1-Digest: aOJgLAIYG2HuvJ4dzLCjg3f6Xfc=
+
+Name: assets/apps/H550AAEEF/www/css/jquery.Jcrop.min.css
+SHA1-Digest: NXz8NzmdzYUyQyp+488ftHpCsp4=
+
+Name: assets/apps/H550AAEEF/www/img/weixin.png
+SHA1-Digest: s0DXkbzy1d8ba5EbagZ0quHAwZU=
+
+Name: res/drawable-hdpi/snow_black.png
+SHA1-Digest: XRjdkwjc+BXJKv2lJE4D8Rhx2z0=
+
+Name: assets/apps/H550AAEEF/www/index.html
+SHA1-Digest: Lh67tXE9ccss41RPdAudcA+UEz4=
+
+Name: assets/icon_scale.9.png
+SHA1-Digest: qIUctUAkthqkey8qZs8wMv+8+ow=
+
+Name: assets/res/prograss_snow1.png
+SHA1-Digest: Vafj/Tc9mpFJC153T5KKSIRJtUg=
+
+Name: assets/res/beep.ogg
+SHA1-Digest: GlIsg8mvi6v0saqDdV7ZN0KoFcY=
+
+Name: assets/apps/H550AAEEF/www/html/img_cat.html
+SHA1-Digest: +eVheK64TzW6juxQ9n+Zc/8dXSw=
+
+Name: res/drawable-hdpi/snow_white_progress.xml
+SHA1-Digest: aoi2DNrsPFJVh/SSYhO/YBRoj2A=
+
+Name: res/drawable-hdpi/line.png
+SHA1-Digest: nuiNUdby4LgB01AS+TeTnoPm6oI=
+
+Name: assets/place/star_light.png
+SHA1-Digest: 3W39VFHIddj6kPuGgSeyQFaHPSU=
+
+Name: assets/iflytek_skin/wave_3.png
+SHA1-Digest: Atxb2YBtBmQUZ5Ee+ozdvhgG+3s=
+
+Name: assets/apps/H550AAEEF/www/js/local.js
+SHA1-Digest: LSzGcU4InaNo94/gU7GrFhxyGVg=
+
+Name: assets/iflytek_skin/play_bg_f.png
+SHA1-Digest: koFJIhikNTfHxxDbAT7T2v0gZeg=
+
+Name: assets/iflytek_skin/more_item_bg.xml
+SHA1-Digest: XcB6V62s+c4+gTRCeP7zQ9uNWJA=
+
+Name: assets/iflytek_skin/progress_horizontal.xml
+SHA1-Digest: zesSyU/zpIj1OhqsFRTPnl35rVk=
+
+Name: assets/cfg/l/DVHotcity.cfg
+SHA1-Digest: pYRdHEvIe4tHhbRW127cuDCe2k4=
+
+Name: assets/apps/H550AAEEF/www/html/adv_clt.html
+SHA1-Digest: 4ZeXaRDAyM8506uf0kFRW1GiFgo=
+
+Name: res/drawable-xhdpi/navbg.png
+SHA1-Digest: AgTBvj3gwv4IaI1fohRnNMPmXEg=
+
+Name: assets/apps/H550AAEEF/www/html/dsc.html
+SHA1-Digest: 9wi/FX4r1w39RJ3GgHTg/+qh5Eo=
+
+Name: res/anim/popup_exit.xml
+SHA1-Digest: xeuCLWmnlXie7gz8vEu6o+z+840=
+
+Name: assets/apps/H550AAEEF/www/html/pay.html
+SHA1-Digest: DEba7rdJxYpaI1+xjUBM0+0BTG4=
+
+Name: res/drawable/image_pick_title_sel.xml
+SHA1-Digest: QrhiSlHhOdrkyQ0YdCkKtNFbQEw=
+
+Name: assets/apps/H550AAEEF/www/html/chat.html
+SHA1-Digest: SveAvEgBbJmL3n8S4ZsTkWv+HX8=
+
+Name: assets/apps/H550AAEEF/www/html/bd_rec.html
+SHA1-Digest: FojaWGCDNpI3miKlal4R9lLMLgc=
+
+Name: res/layout/snow_white_progress.xml
+SHA1-Digest: 2q/tpJ4Dr60EdyvPOFW7b3unzGI=
+
+Name: assets/apps/H550AAEEF/www/img/vip_shop.png
+SHA1-Digest: unX4CZksfBrR6B9aAsVkBkIWIy0=
+
+Name: assets/apps/H550AAEEF/www/img/wait.jpg
+SHA1-Digest: gLCO3Yq6W1Q8EyE3jqpKN5+uoDk=
+
+Name: res/layout/image_pick_gallery.xml
+SHA1-Digest: 8YpXi4FJ564eWzTZO9Q3jfZY7/A=
+
+Name: assets/res/dev.png
+SHA1-Digest: JnB4yEIWCbf9Pes6jqUmLeGLCbM=
+
+Name: assets/apps/H550AAEEF/www/main.html
+SHA1-Digest: fXLeCuFqOO9A0hJ1Sgl7xlwzBw4=
+
+Name: assets/res/point.png
+SHA1-Digest: 099YVv4Dd6pwlnu0C38LOERev4A=
+
+Name: res/anim/popup_enter.xml
+SHA1-Digest: qU8LYyEc6nLOYhXkvlm3szklZI0=
+
+Name: res/drawable-xxhdpi/line.png
+SHA1-Digest: nuiNUdby4LgB01AS+TeTnoPm6oI=
+
+Name: assets/apps/H550AAEEF/www/contact.html
+SHA1-Digest: 7m8j6/iKRnanbBfNkL0F1hsud3s=
+
+Name: assets/apps/H550AAEEF/www/font/fontawesome-webfont.svg
+SHA1-Digest: hBnJUCfifahMfXqk339h0d0Er4E=
+
+Name: assets/apps/H550AAEEF/www/img/isman.png
+SHA1-Digest: 9G40XoKoZ05dh75CF0EmMkZ+K50=
+
+Name: assets/apps/H550AAEEF/www/bbs.html
+SHA1-Digest: vQ87C6+liqMQQ1NIPLi+XZkvUKg=
+
+Name: assets/apps/H550AAEEF/www/font/fontawesome-webfont.woff
+SHA1-Digest: EvjBk5AumTSEk6zjLkmAMb95tlQ=
+
+Name: assets/VerDatset.dat
+SHA1-Digest: EZNz+7LbA2cS33LsmybAwoQN+7E=
+
+Name: res/drawable-hdpi/titlebg.png
+SHA1-Digest: IeKF5QBztD8wHPKNIe+j/J5iMjs=
+
+Name: assets/data/error.html
+SHA1-Digest: qCHSBjGMwoDVvdakIFkDGChJ2+Q=
+
+Name: assets/cfg/h/DVDirectory.cfg
+SHA1-Digest: OLZcdUQFgfQ92zLvF0gOXIfwFT8=
+
+Name: res/drawable-xxhdpi/titlebg.png
+SHA1-Digest: YZvQc1/bCj/rMvabiJjmztx8Wlc=
+
+Name: assets/iflytek_skin/btn_right_d.png
+SHA1-Digest: DvJTQNmdsM8EoXmAKOBRggm6gZA=
+
+Name: assets/apps/H550AAEEF/www/img/idcard_b.jpg
+SHA1-Digest: vkc1ojPY0M6zf3i8hDq+TsgkpDY=
+
+Name: res/drawable-ldpi/line.png
+SHA1-Digest: LcgN6bvQ3dHoBy4uoH5hxQn/EKE=
+
+Name: assets/apps/H550AAEEF/www/css/style.css
+SHA1-Digest: UqshhctJd9TMKs4Ef3PVWOtBCog=
+
+Name: res/drawable-mdpi/icon.png
+SHA1-Digest: ypNXieZkKHx1wDT1gioazcFFDEY=
+
+Name: assets/apps/H550AAEEF/www/img/man.png
+SHA1-Digest: FbJa14AJ15kEOaoNGcKJ/NmxYrQ=
+
+Name: assets/iflytek_skin/btn_right_f.png
+SHA1-Digest: 2nCtLmCE9M7x5CLwEi5zmLT9C28=
+
+Name: res/drawable-xhdpi/splash.png
+SHA1-Digest: 7wYQ7b1LobcEFrrnYTboezFwp5k=
+
+Name: assets/iflytek_skin/more_expanded.png
+SHA1-Digest: vVb6fQSrPGMSm3aq3DmvpZH+RF4=
+
+Name: assets/apps/H550AAEEF/www/font/FontAwesome.otf
+SHA1-Digest: gqf/c/luL270GdLZ/VILTJO9rnw=
+
+Name: res/drawable/image_pick_no_media.png
+SHA1-Digest: dsogMWZPD4CTWdW/3NUaheChMTI=
+
+Name: assets/iflytek_skin/btn_f.png
+SHA1-Digest: JYNFj59SUT29gr5EZMC4OhpvV1Y=
+
+Name: assets/apps/H550AAEEF/www/html/idt.html
+SHA1-Digest: 2ypLv9GKZkK9hd6azDR/oKCpsZk=
+
+Name: assets/iflytek_skin/progress.xml
+SHA1-Digest: 3XAjHoXFwnlsGccJvPGI/AcxK8w=
+
+Name: assets/iflytek_skin/dot_highlight.png
+SHA1-Digest: d+ALjgIwK56qEToSQi8rt8UdYMM=
+
+Name: assets/apps/H550AAEEF/www/html/mycard.html
+SHA1-Digest: IZ40ClBw6BYH2If9bU5UWum8Yr0=
+
+Name: assets/iflytek_skin/wave_4.png
+SHA1-Digest: TAhHCkJuRRVoEZsrVI5QY9bJz4c=
+
+Name: assets/data/control.xml
+SHA1-Digest: 5UOk+381b/f9fVhAhEkir7wa938=
+
+Name: res/drawable-xhdpi/titlebg.png
+SHA1-Digest: YZvQc1/bCj/rMvabiJjmztx8Wlc=
+
+Name: assets/place/arrow.png
+SHA1-Digest: 3gWKzf1rnroxvdMjcciXamNV3vk=
+
+Name: assets/apps/H550AAEEF/www/html/card.html
+SHA1-Digest: HNXEYKm5qKC0eY+CvJDCstmDlwA=
+
+Name: assets/cfg/h/DVVersion.cfg
+SHA1-Digest: JjUkhjmYUlWY9mO6cTTs7Cq1krI=
+
+Name: res/drawable-xhdpi/actionsheet_single_normal.9.png
+SHA1-Digest: +ooz/8dU/3APqD3nIlcnjVzTK1c=
+
+Name: assets/place/iconphone.png
+SHA1-Digest: jfeqsGDvXJu4n98/RwoKWS1AXHQ=
+
+Name: assets/apps/H550AAEEF/www/html/myshop.html
+SHA1-Digest: ej6Vh1vmv6+A/uQaqUmR6HDUBEs=
+
+Name: res/drawable-hdpi/pressbg.png
+SHA1-Digest: yXncWZ+pCJZOahN1dXv79cqdOxc=
+
+Name: res/drawable-xxhdpi/search.png
+SHA1-Digest: t+mXCi0UW4qObeFd4jBLN+sD4aY=
+
+Name: res/drawable-xhdpi/actionsheet_single_pressed.9.png
+SHA1-Digest: bsE1DB3cZdWpDyGLnmpnyA2KvHQ=
+
+Name: assets/iflytek_skin/wave_2.png
+SHA1-Digest: amX3XVyUvO7IKVI4BkCsX2Ut8lA=
+
+Name: assets/cfg/a/street.sty
+SHA1-Digest: XBEgMjk7XIhI+4x9yl7RxD9QgLs=
+
+Name: res/drawable-xxhdpi/navbg.png
+SHA1-Digest: AgTBvj3gwv4IaI1fohRnNMPmXEg=
+
+Name: assets/apps/H550AAEEF/www/img/mm.png
+SHA1-Digest: q0a6bgKHWq+N3jyZypqPMP/cFUc=
+
+Name: res/drawable-mdpi/splash.png
+SHA1-Digest: hCCySXKxB/v3noK+A4HZdMa2l7o=
+
+Name: assets/iflytek_skin/play_bg_p.png
+SHA1-Digest: Ah9E3GP74FNv14Xt3tcfIzRKRcU=
+
+Name: res/drawable-xhdpi/as_bg_ios6.9.png
+SHA1-Digest: BdQQGRQgQduwDkl+hdW5pElCtno=
+
+Name: assets/cfg/h/DVHotcity.cfg
+SHA1-Digest: jE42/aHh+AkYo6jxgSxOaLIyak8=
+
+Name: res/drawable-ldpi/navbg.png
+SHA1-Digest: YGgYIirM7DzQWPSu8HPHTV2yFlQ=
+
+Name: assets/iflytek_skin/btn_left_p.png
+SHA1-Digest: JAb93jQ+gdk4lB297qg140zrIcU=
+
+Name: assets/apps/H550AAEEF/www/start.html
+SHA1-Digest: P3vh7J7Q8Apfm2c+e3aq4byGLgo=
+
+Name: res/layout/image_pick_gallery_item.xml
+SHA1-Digest: I7yRvTXt12cofAzavX7sgZ7NPfw=
+
+Name: res/drawable-hdpi/snow_white.png
+SHA1-Digest: p8jzodyDU0JoZxp3gQu823r6I3g=
+
+Name: assets/iflytek_skin/btn_right_n.png
+SHA1-Digest: 5wrAj3g1k1Opr0bYwHpTPv86QeA=
+
+Name: res/drawable/image_pick_mask.9.png
+SHA1-Digest: dMjv7v9UF8YoYHbf5xP2TQoUwVw=
+
+Name: lib/armeabi/libmsc.so
+SHA1-Digest: 5/iTmYoJafk1ySqZKYdXjX1ejiM=
+
+Name: assets/cfg/a/ResPack.cfg
+SHA1-Digest: LlQ3XN5601ZmGE9ceutl1Yh/dGw=
+
+Name: res/drawable-ldpi/splash.png
+SHA1-Digest: R2KZV07CLey4OYYUzj0ZYmGFMQg=
+
+Name: assets/apps/H550AAEEF/www/img/isshop.png
+SHA1-Digest: tmORhU4Hsl5ALMUL/MBnjMHNQGs=
+
+Name: assets/iflytek_skin/wave_1.png
+SHA1-Digest: ih/VoxsoAyk1f/qCAPq/kELAefQ=
+
+Name: res/drawable-hdpi/icon.png
+SHA1-Digest: vU0udYweHzm8g7EFsou9XdoRCP0=
+
+Name: assets/res/bubble_background.png
+SHA1-Digest: cDhfyEJsXAGr1usS1wYmA4VsGt8=
+
+Name: assets/iflytek_skin/more_blank.png
+SHA1-Digest: 0jYsRXZUpKad1nT/szJuWYsPxT4=
+
+Name: assets/apps/H550AAEEF/www/img/women.png
+SHA1-Digest: l7PtJAGSLG3yvIECWbvQu+wFNwo=
+
+Name: assets/apps/H550AAEEF/www/html/myadp.html
+SHA1-Digest: q6r1a/DulSP0lnIpAF6nvKV88mQ=
+
+Name: res/drawable-xhdpi/pressbg.png
+SHA1-Digest: SDl+oXsEKQkv2jykvq9cxUnyA9s=
+
+Name: io/dcloud/all.js
+SHA1-Digest: bQAGsaWkgs36qNpf/mDrRSLESQ8=
+
+Name: assets/CMRequire.dat
+SHA1-Digest: HvCt5Fa6OKoxWE0PvOZH0Lp0s5k=
+
+Name: res/layout/snow_black_progress.xml
+SHA1-Digest: VpHRPvwrDCHvbjBHgj5HBqw9hB4=
+
+Name: res/drawable-xhdpi/line.png
+SHA1-Digest: nuiNUdby4LgB01AS+TeTnoPm6oI=
+
+Name: assets/iflytek_skin/dot_normal.png
+SHA1-Digest: jTJ73tF/ZSYqdnUbuJEw04vHY64=
+
+Name: com/tencent/mm/sdk/platformtools/rep5402863540997075488.tmp
+SHA1-Digest: 2jmj7l5rSw0yVb/vlWAYkK/YBwk=
+
+Name: assets/apps/H550AAEEF/www/user.html
+SHA1-Digest: 6rqyigwDTWRQ91/dcBBI9t0VeoI=
+
+Name: assets/apps/H550AAEEF/www/html/bigimg.html
+SHA1-Digest: taSFIIMicZlgESmDqio3w0QwPOA=
+
+Name: assets/iflytek_skin/more_collapsed.png
+SHA1-Digest: 4BAfu1NTdgXbj0ULmC/jAfAGHLQ=
+
+Name: assets/iflytek_skin/wave_5.png
+SHA1-Digest: 1myJM+xhtLrVDfa/Wai4jLzl4f8=
+
+Name: assets/apps/H550AAEEF/www/manifest.json
+SHA1-Digest: j/qGMrsakYYMlAqDuphrjCkXbdg=
+
+Name: assets/apps/H550AAEEF/www/img/shop_default.png
+SHA1-Digest: ubkC0fofj7JDj1qU6C85vZx/NQ0=
+
+Name: assets/apps/H550AAEEF/www/html/addfriend.html
+SHA1-Digest: JimZlHmr8uYTSK1KzCk53SMTLtg=
+
+Name: res/drawable-mdpi/titlebg.png
+SHA1-Digest: nb2zMowQ85WbSkaeLXsMqI+xtTY=
+
+Name: assets/iflytek_skin/warning.png
+SHA1-Digest: IbIxXmhDAhwIz4zG6HfP+VP9uGY=
+
+Name: assets/iflytek_skin/play_bg_n.png
+SHA1-Digest: m5gJkZ3t285QgZAjhm1QbWF64Kw=
+
+Name: assets/cfg/a/trafficstyle.sty
+SHA1-Digest: TF3GeDjRK3lbaILG27zGdn5CGE8=
+
+Name: assets/apps/H550AAEEF/www/login.html
+SHA1-Digest: rTHdQ2UKy/Tu3/ok4GhPyA7bsZ8=
+
+Name: assets/logo_l.png
+SHA1-Digest: WwqUEYbcRtro7LUcYuofXSP0AWc=
+
+Name: assets/iflytek_skin/wave_0.png
+SHA1-Digest: J8e+9FxVDZ5yyxxLAhvKn9I7jOc=
+
+Name: assets/apps/H550AAEEF/www/img/head_default.png
+SHA1-Digest: obHoCMHec5D0VpZCKO6rk5JcW4o=
+
+Name: assets/apps/H550AAEEF/www/img/bg1.jpg
+SHA1-Digest: H8Nt6Cu9I/v2EWSPYLU94C+UQqU=
+
+Name: res/drawable-xhdpi/actionsheet_top_pressed.9.png
+SHA1-Digest: ITrDfboVcvScvX5Id3ebOtIAR9Y=
+
+Name: assets/apps/H550AAEEF/www/img/idcard_i.gif
+SHA1-Digest: D/B6S1441gwbfUlReMZ4qZhws14=
+
+Name: assets/cfg/l/DVStreet.cfg
+SHA1-Digest: OKtyGk2LWo+vKRyXiSg+vXosqn8=
+
+Name: assets/apps/H550AAEEF/www/js/jquery.min.js
+SHA1-Digest: WGolb6pgEdpNoMr7WKeaW4ZTZH0=
+
+Name: assets/apps/H550AAEEF/www/html/advice.html
+SHA1-Digest: /aWeTFwHHELQnQaUUheJZOc09PI=
+
+Name: assets/iflytek_skin/editbox.png
+SHA1-Digest: sLk69NjJNJEecHgKXnhQl9hEvkI=
+
+Name: res/drawable-xhdpi/actionsheet_bottom_pressed.9.png
+SHA1-Digest: Kr64eCBbeZEu9d6U6KH0hlwsPmI=
+
+Name: assets/cfg/a/satellitestyle.sty
+SHA1-Digest: WZ95lIU7Ybxe4Jp1tjg6E6Wmhfc=
+
+Name: res/drawable-xhdpi/actionsheet_bottom_normal.9.png
+SHA1-Digest: sZWxe/9JNJLSYQSSNtkxkgS2daE=
+
+Name: assets/apps/H550AAEEF/www/html/vip.html
+SHA1-Digest: LTJZmWWN9iKHLxEwteeDJi6pBNI=
+
+Name: res/drawable-ldpi/titlebg.png
+SHA1-Digest: UiG0qf6WB3LXkx44RWE1BYjTVks=
+
+Name: res/drawable-hdpi/search.png
+SHA1-Digest: PtL+bP+RQAZx0p0pQG5T95N9FLg=
+
+Name: assets/apps/H550AAEEF/www/js/config.js
+SHA1-Digest: WSAZoDIKzFXGgS61hoM8I9KMc2w=
+
+Name: assets/iflytek_skin/loading.png
+SHA1-Digest: d518GuGTW93zTSIHI5TQr1kcwSE=
+
+Name: assets/apps/H550AAEEF/www/css/mui.min.css
+SHA1-Digest: 0WMiMU9hKvFHKvxytW+PQ83FmgE=
+
+Name: res/drawable-xhdpi/as_other_bt_bg.9.png
+SHA1-Digest: N5YcfIlH1GjKtRU0uVVzLp0JfTQ=
+
+Name: res/drawable-xhdpi/search.png
+SHA1-Digest: t+mXCi0UW4qObeFd4jBLN+sD4aY=
+
+Name: assets/apps/H550AAEEF/www/img/2m.png
+SHA1-Digest: AXYrESTmruCkoVypJjUBW7YwhLU=
+
+Name: resources.arsc
+SHA1-Digest: /OqpAO2n5v59iPzIHo39PLdTVnU=
+
+Name: assets/apps/H550AAEEF/www/img/vip_lue.png
+SHA1-Digest: B1nwHo46J1oH2BkvuTbz0PNmzKM=
+
+Name: assets/cfg/l/DVVersion.cfg
+SHA1-Digest: JjUkhjmYUlWY9mO6cTTs7Cq1krI=
+
+Name: assets/apps/H550AAEEF/www/html/chat_content.html
+SHA1-Digest: RhDAjFwgwlMR4bRDs+uxOopKPlU=
+
+Name: AndroidManifest.xml
+SHA1-Digest: A/fqW//fdkoXCMcsiQBndDraCsc=
+
+Name: assets/apps/H550AAEEF/www/font/fontawesome-webfont.eot
+SHA1-Digest: 1+d5KAab3SJ/KRuaLJvdkYeT5Sk=
+
+Name: res/drawable-ldpi/search.png
+SHA1-Digest: F6/EHW3RIbqrHdeexMUM2jTK0NM=
+
+Name: res/drawable-xxhdpi/icon.png
+SHA1-Digest: bx6dOyJNPpbaWVYh97IUz1Gn/4A=
+
+Name: assets/apps/H550AAEEF/www/logo.png
+SHA1-Digest: Glvnd7tyGjNMFSIo37onbrhKLP0=
+
+Name: assets/iflytek_skin/speechbox.xml
+SHA1-Digest: QzBSzyXzt80fgx+dRNVUxyJg0yI=
+
+Name: assets/iflytek_skin/btn_n.png
+SHA1-Digest: DuByL0UQXY6DZdewl5EIze8zQYs=
+
+Name: assets/apps/H550AAEEF/www/html/bbsmsg.html
+SHA1-Digest: CaeIxe8xXD4WQXM/wdere2mLWqw=
+
+Name: classes.dex
+SHA1-Digest: pkKaBn9GdG4UmAQReLDL6sWFcjI=
+
+Name: assets/apps/H550AAEEF/www/js/jquery.Jcrop.min.js
+SHA1-Digest: 5yCXbO/s4VQNBJOGtqDJsRhLRP4=
+
+Name: res/drawable-xhdpi/actionsheet_top_normal.9.png
+SHA1-Digest: s97O3pxT1sFSO9Mj0fugvq3J8/w=
+
+Name: res/drawable-hdpi/snow_black_progress.xml
+SHA1-Digest: zoM/r2Lfpv2Kx7hMuy5D6dSCOQE=
+
+Name: res/drawable-xxhdpi/splash.png
+SHA1-Digest: fj073KIL2r9+TjXfUg9WxC73NUc=
+
+Name: res/drawable-mdpi/pressbg.png
+SHA1-Digest: qpXvIo/t/BiXtZOnanutdNXFFi0=
+
+Name: res/drawable-xhdpi/actionsheet_middle_pressed.9.png
+SHA1-Digest: pUFFInHh2HOhvXwCg/ZHEyxam5I=
+
+Name: assets/iflytek_skin/btn_right_p.png
+SHA1-Digest: 7lYW0Cogj1TlnEfqJEQnKT1QbL8=
+
+Name: assets/cfg/a/mapstyle.sty
+SHA1-Digest: YQkRv3hpAW+3yaICazAk6s8LRZM=
+
+Name: assets/cfg/l/DVDirectory.cfg
+SHA1-Digest: sRW1J/dOTCke3KqxmzFqRGrKj1s=
+
+Name: res/drawable/slt_as_ios7_other_bt_top.xml
+SHA1-Digest: F90M8eaUK+h8e9BEFpK3sNaPyOo=
+
+Name: res/drawable-hdpi/splash.png
+SHA1-Digest: WyyqYSJpmMuIbh7O9LpTbux294g=
+
+Name: assets/apps/H550AAEEF/www/img/contact.png
+SHA1-Digest: m5RApANqwBWJhrLL9zXtMHqDGT0=
+
+Name: res/drawable/slt_as_ios7_cancel_bt.xml
+SHA1-Digest: BqbQthGP5jISXCKaLfDCTIaIw44=
+
+Name: assets/apps/H550AAEEF/www/html/wallet.html
+SHA1-Digest: +YoQTARPIw95/YmmBHXPpzKetKs=
+
+Name: assets/apps/H550AAEEF/www/img/zhizhao.jpg
+SHA1-Digest: XuvnsieuUqD9IKmS7MRQ1Ocyx08=
+
+Name: assets/iflytek_skin/play.png
+SHA1-Digest: TCgWMoy43NcE0ywGNyj1UxsDMS0=
+
+Name: res/drawable-ldpi/icon.png
+SHA1-Digest: ypNXieZkKHx1wDT1gioazcFFDEY=
+
+Name: assets/iflytek_skin/synthesizer.xml
+SHA1-Digest: g0G1zF4lxt98beOVuW1cRCSLQhM=
+
+Name: assets/cfg/a/ResPack_Street.cfg
+SHA1-Digest: UaJDqma+faYUnJOqH8THYYtwpE8=
+
+Name: assets/apps/H550AAEEF/www/html/push.html
+SHA1-Digest: kcgc74TjLxRUdaHypyXxGYlu12U=
+
+Name: res/drawable-mdpi/search.png
+SHA1-Digest: gpZAcZn19EqOFvYtg1rjb97lElQ=
+
+Name: assets/apps/H550AAEEF/www/font/fontawesome-webfont.ttf
+SHA1-Digest: wBng4Csk+Zyo7vc8/j0TTpBPMjo=
+
+Name: res/drawable-xxhdpi/pressbg.png
+SHA1-Digest: SDl+oXsEKQkv2jykvq9cxUnyA9s=
+
+Name: assets/apps/H550AAEEF/www/userinfo_set.html
+SHA1-Digest: 5+Jk3a2pF9sKLp+Z7X2xuX4qfqU=
+
+Name: assets/apps/H550AAEEF/www/html/reinfo.html
+SHA1-Digest: p42wXc8Ui9FxBMPJz0Z4zgUWynM=
+
+Name: res/drawable-xhdpi/as_cancel_bt_bg.9.png
+SHA1-Digest: XyzC+Z7SAmzp+5jyVplpojG3Ub0=
+
+Name: res/drawable-ldpi/pressbg.png
+SHA1-Digest: 0KgZuuD+5+C/kvwDZkI/Sc2ewxc=
+
+Name: assets/apps/H550AAEEF/www/confirm.html
+SHA1-Digest: XWDHMKWsFPcYstTvuPEMfLgwDyA=
+
+Name: assets/apps/H550AAEEF/www/html/shop.html
+SHA1-Digest: l0Fy/6zJsQqmzQ8YFdcIoZ4kRdA=
+
+Name: assets/apps/H550AAEEF/www/html/about.html
+SHA1-Digest: AAcU4AVrFdRpdQkPdeQQI3RzTyM=
+
+Name: lib/armeabi/liblocSDK4d.so
+SHA1-Digest: JML3PsMjI9jw6siLWHMa4zNuTJM=
+
+Name: assets/apps/H550AAEEF/www/js/mui.min.js
+SHA1-Digest: fRCRFpvRSQs8mSJ7lI6Vk4GvvjY=
+
+Name: assets/iflytek_skin/btn_p.png
+SHA1-Digest: zzGyuyYQkRGfHtQlzUar799JT4c=
+
+Name: assets/apps/H550AAEEF/www/img/v1.png
+SHA1-Digest: vFlwScn0RZjywmuH+EGfSS8QUBE=
+
+Name: assets/apps/H550AAEEF/www/reg.html
+SHA1-Digest: JpF5sR5gUZ737pBcm4a4UjRBCks=
+
+Name: res/drawable-mdpi/line.png
+SHA1-Digest: LcgN6bvQ3dHoBy4uoH5hxQn/EKE=
+
+Name: assets/apps/H550AAEEF/www/html/bill.html
+SHA1-Digest: wo8gGu3D5QmL7XODDd9JSI2O028=
+
+Name: assets/apps/H550AAEEF/www/img/ad_default.png
+SHA1-Digest: YRcn/nq9xEVhVjLrl/h3RcLgNTQ=
+
+Name: assets/apps/H550AAEEF/www/fonts/mui.ttf
+SHA1-Digest: 8l0lf+OivF816dMhk4uO5MGpaqw=
+
+Name: res/drawable-hdpi/navbg.png
+SHA1-Digest: Wx+WdkgavgIRzfVGXcIbtw0vHiA=
+
+Name: res/drawable-mdpi/navbg.png
+SHA1-Digest: MIk1ifJgJLiNu6vDe7ear3ucWSE=
+
+Name: assets/apps/H550AAEEF/www/css/loading.css
+SHA1-Digest: 1LdTRimxISq9iKWpgAVYF6fyPT0=
+
+Name: assets/apps/H550AAEEF/www/repas.html
+SHA1-Digest: XaMfgnX9cGNFaODX45NPf123aUI=
+
+Name: res/drawable/slt_as_ios7_other_bt_middle.xml
+SHA1-Digest: E+BV7V7Y9j4OqFc7ww3yxKQGzrQ=
+
+Name: res/drawable/slt_as_ios7_other_bt_bottom.xml
+SHA1-Digest: VU70+AYjgy05vpJTTUMQhFtw1+Q=
+
+Name: res/drawable-xhdpi/icon.png
+SHA1-Digest: bmVfw6LBZbrPAbSEkSa+ftzHNM4=
+
+Name: assets/iflytek_skin/pen.png
+SHA1-Digest: 9UWDgwvuQwgfs2s/N/CwSVM3hBc=
+
+Name: assets/iflytek_skin/panel_bg.png
+SHA1-Digest: xTV6Ip7SqVQAivhNE6DkLwIJM8Q=
+
+Name: res/drawable/slt_as_ios7_other_bt_single.xml
+SHA1-Digest: BqbQthGP5jISXCKaLfDCTIaIw44=
+
+Name: assets/apps/H550AAEEF/www/html/adv.html
+SHA1-Digest: iTceSu8LzwnlI5l3t3kgk0qmweY=
+
+Name: assets/res/arrow.png
+SHA1-Digest: ErPx7HUXUOYNFb3F9ydynoix5uw=
+
+Name: assets/apps/H550AAEEF/www/img/idt_p_default.png
+SHA1-Digest: ITW5QS6Ui+7oJWUpmnQpRpHQ610=
+
+Name: assets/cfg/h/DVStreet.cfg
+SHA1-Digest: OKtyGk2LWo+vKRyXiSg+vXosqn8=
+
+Name: assets/apps/H550AAEEF/www/img/v2.png
+SHA1-Digest: JCNJkz09/PbOKG35D7oJBuPY7lg=
+
+Name: res/drawable-xhdpi/actionsheet_middle_normal.9.png
+SHA1-Digest: TR75EgrBbToSqPBljtKchCeAKTs=
+
+Name: assets/apps/H550AAEEF/www/img/qq.png
+SHA1-Digest: cyXHcxLdYVK4ZvC0gs4o7LsljFs=
+
+Name: assets/apps/H550AAEEF/www/html/adp.html
+SHA1-Digest: luHeubzjMxOY573DjChW1Gd31d4=
+
+Name: lib/armeabi/libBaiduMapSDK_v2_4_1.so
+SHA1-Digest: gGw+SC+TztOqRNsAZBvXvZkuIiM=
+
+Name: res/drawable/slt_as_ios7_other_bt_title.xml
+SHA1-Digest: 2Z4TL3k4mbtsAy9iA0ZCZlFIc4I=
+

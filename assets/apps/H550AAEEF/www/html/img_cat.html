@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="CN">
+
+	<head>
+		<meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+		<script type="text/javascript" src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../js/jquery.Jcrop.min.js"></script>
+
+		<link rel="stylesheet" href="../css/jquery.Jcrop.min.css" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css"/>
+		<style>
+			.jc-demo-box IMG {
+				width: 100%;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left co-white">
+				<font class="fz16">上传图片</font>
+			</a>
+			<button class="mui-btn mui-pull-right co-white" style="background:none; border:0px" onclick="return convertImageToCanvas()">
+				上传
+			</button>
+		</header>
+		<div class="container" style="margin-top: 45px;">
+			<div class="row">
+				<div class="span12">
+					<div class="jc-demo-box" style="width: 100%; ">
+						<img src="" id="img1" alt="" />
+
+					</div>
+				</div>
+			</div>
+			<canvas id="myCanvas" style="display: none"></canvas>
+		</div>
+		<script src="../js/config.js"></script>
+		<script>
+		mui.init();
+			var x1 = 0;
+			var y1 = 0;
+			var w = 0;
+			var h = 0;
+			var imageObj = new Image();
+			document.addEventListener('plusready',function(){
+				plus.gallery.pick( function(path){
+    					loadImage(path);
+   				}, function ( e ) {
+    			}, {filter:"image"} );
+			});
+
+			function loadImage(src) {
+				document.getElementById("img1").src = src;
+				imageObj.src = src;
+				jQuery(function($) {
+					var jcrop_api;
+					$('#img1').Jcrop({
+						aspectRatio:1.56,
+						onChange: showCoords,
+						onSelect: showCoords,
+						onRelease: clearCoords
+					}, function() {
+						jcrop_api = this;
+					});
+
+					function showCoords(c) {
+						x1 = c.x;
+						y1 = c.y;
+						w = c.w;
+						h = c.h;
+					};
+
+					function clearCoords() {
+						$('#coords input').val('');
+					};
+				});
+			}
+
+			function convertImageToCanvas() {
+				plus.nativeUI.showWaiting("图片上传中");
+					var canvas = document.getElementById("myCanvas");
+					canvas.width = w;
+					canvas.height = h;
+					var context = canvas.getContext('2d');
+					var scale = imageObj.width / (document.body.clientWidth);
+					context.drawImage(imageObj, x1 * scale, y1 * scale, w * scale, h * scale, 0, 0, w, h);
+					uploadPhoto(canvas.toDataURL("image/png"));
+			}
+
+
+			function uploadPhoto(imagesrc) {
+				if (w == 0 && h == 0) {
+					plus.nativeUI.closeWaiting();
+					mui.alert('请先选择要裁剪的区域后，再提交。');
+					return false;
+				};
+				var $para = imagesrc;
+				mui.post('http://vali.wedams.com/ajax/adv_img_up.php',{adpic:$para,pho:plus.storage.getItem('pho')},function(data){
+					if(data.status==0){
+						plus.nativeUI.closeWaiting();
+						plus.storage.setItem('advImgSrc',data.val);
+						plus.webview.getWebviewById('adp').reload();
+						plus.webview.currentWebview().close();
+
+					}
+				},'json');
+			}
+			 mui.back = function(){
+			 	plus.webview.currentWebview().close();
+			 }
+		</script>
+	</body>
+
+</html>

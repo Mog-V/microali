@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <script src="js/mui.min.js"></script>
+    <link href="css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="css/v_style.css"/>
+    <style type="text/css">
+    *{text-align: center;}
+    	.vld{display: inline-block;margin: 20px auto;border: 1px solid #EB6100;border-radius: 5px;padding: 10px 25px;color: #EB6100;}
+    	.vld:active{color: #f80 !important;}
+    	.vinput{height: 50px !important;}
+    	.vnd{display: inline-block;margin: 20px auto;border: 1px solid #ccc;border-radius: 5px;padding: 10px 25px;color: #ccc !important;background-color: rgba(241,241,241,1);}
+    </style>
+</head>
+<body>
+		<header class="vheader">
+		<h1 class="vheader-title">获取验证码</h1>
+	</header>
+	<div class="vbody">
+		<input type="text" class="vinput" id="vcof" placeholder="请输入验证码" />
+		<a class="vnd" id="rbtn">重新获取</a>
+		<div class="vfoot">
+			<a id="reg" class="vbtn">确认</a>
+		</div>
+	</div>
+</body>
+<script type="text/javascript" charset="utf-8">
+mui.back = function(){
+	plus.webview.currentWebview().close();
+}
+	var rbtn=document.getElementById("rbtn");
+	var $vcof;
+	mui.plusReady(function(){
+		var self=plus.webview.currentWebview();
+			$vcof=self.vcof;
+	});
+	reget();
+	function reget(){
+		var $t=60;
+		var $time=setInterval(function(){
+			if($t<=0){
+				$t=60;
+				rbtn.className="vld";
+				rbtn.innerText="重新获取";
+				clearInterval($time);
+				return;
+			}
+			rbtn.innerText="("+$t+")"+"秒后重新获取";
+			$t-=1;
+		},1000);
+	}
+	rbtn.addEventListener('tap',function() {
+		if(rbtn.className=="vnd"){
+			return;
+		}
+		mui.get('http://www.wedams.com/app/ajax/ajax.php', {
+				state: '0',pho: plus.storage.getItem("pho")
+			}, function(data) {
+				if(data.state==0){
+					$vcof=data.val;
+					plus.nativeUI.toast(data.msg);
+					return;
+				}
+				plus.nativeUI.toast("服务器连接失败！");
+			}, 'json');
+		rbtn.className="vnd";
+		reget();
+	});
+	
+	document.getElementById("reg").addEventListener('tap',function() {
+		if(document.getElementById("vcof").value==$vcof){
+			var $rec=plus.storage.getItem("rec"),
+				$pho=plus.storage.getItem("pho"),
+				$nik=plus.storage.getItem("nik"),
+				$pas=plus.storage.getItem("pas");
+				mui.get('http://www.wedams.com/app/ajax/ajax.php', {
+				state: '1000',rec:$rec,pho:$pho,nik:$nik,pas:$pas
+				}, function(data) {
+				if(data.state==0){
+					plus.nativeUI.toast("注册成功！");
+					mui.openWindow({url:"index.html",id:"index.html",
+    				styles:{top:"0",bottom:"0",},waiting:{title:'请稍后...'}});
+					return;
+				}
+				plus.nativeUI.toast(data.msg);
+				}, 'json');
+			//TO DO
+		}else{
+			plus.nativeUI.toast("验证码错误！");
+		}
+	});
+</script>
+</html>

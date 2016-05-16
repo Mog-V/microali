@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="css/style.css"/>
+	</head>
+	<style type="text/css">
+		*{color: #fff;}
+	</style>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">个人资料设置</h1>
+		</header>
+		<div style="position: fixed;top: 50px;bottom: 50px;left: 0;right: 0;background-color: rgb(231,231,231);">
+			<div class="mui-scroll-wrapper">
+				<div class="mui-scroll">
+					<div class="input-list-cot">
+						<div class="input-list" style="height: 80px;line-height: 80px;">
+							<span style="height: inherit;line-height: inherit;">头像</span>
+							<img id="icon" style="position: absolute;top: 10px;right: 90px;width: 60px;height: 60px;border-radius: 50%;" src="../img/head_default.png" />
+							<a id="ricon" style="display: block;height: 60px;line-height: 60px;position: absolute;top: 10px;right: 15px;font-size: 60px;"><i class="icon-plus-sign" style="color: #f03;"></i></a>
+						</div>
+					</div>
+					<div class="input-list-cot">
+						<div class="input-list">
+							<span>昵称</span>
+							<input id="nik" type="text" placeholder="您想使用的昵称" />
+						</div>
+						<div class="input-list">
+							<span>性别</span>
+							<select id="sex">
+								<option value="0">男</option>
+								<option value="1">女</option>
+							</select>
+						</div>
+						<div class="input-list">
+							<span>生日</span>
+							<input id="age" type="date"  placeholder="您的出生日期" />
+						</div>
+					</div>
+					<div class="input-list-cot">
+						<div class="input-list">
+							<span>公司名称</span>
+							<input id="shopname" type="text" placeholder="您所在公司名称" />
+						</div>
+						<div class="input-list">
+							<span>职位</span>
+							<input id="position" type="text" placeholder="您在公司承担的职务" />
+						</div>
+						<div class="input-list">
+							<span>官方网址</span>
+							<input id="web" type="text"  placeholder="公司或个人官方网站" />
+						</div>
+						<div class="input-list">
+							<span>微信公众号</span>
+							<input id="weixin" type="text"  placeholder="公司或个人微信公众号" />
+						</div>
+						<div class="input-list">
+							<span>客服电话</span>
+							<input id="tell" type="text"  placeholder="公司或个人电话" />
+						</div>
+						<div class="input-list">
+							<span>邮箱</span>
+							<input id="email" type="text"  placeholder="公司或个人微信邮箱账号" />
+						</div>
+						<div class="input-list">
+							<span>所在地</span>
+							<input id="local" type="text"  placeholder="公司或个人实际所在详细地址" />
+						</div>
+						<div class="input-list input-list-textarea">
+							<span>公司介绍</span>
+							<textarea id="more" placeholder="公司介绍或最新活动介绍"></textarea>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="upbtn" style="position: fixed;bottom: 0;width: 100%;height: 50px;line-height: 50px;background-color: #d34;text-align: center;font-size: 20px;">
+			保存
+		</div>
+	</body>
+<script src="js/mui.min.js" ></script>
+<script src="js/config.js"></script>
+<script type="text/javascript">
+mui.init();
+mui('.mui-scroll-wrapper').scroll();
+document.addEventListener('plusready',function(){
+	mui.getJSON($http+'userinfo_get.php',
+	{pho:plus.storage.getItem('pho')},function(e){
+		if(e.status==0){
+			document.getElementById('nik').value=e.val.nik;
+			document.getElementById('sex').value=e.val.sex;
+			document.getElementById('age').value=e.val.age;
+			document.getElementById('shopname').value=e.val.shopname;
+			document.getElementById('position').value=e.val.position;
+			document.getElementById('web').value=e.val.web;
+			document.getElementById('weixin').value=e.val.weixin;
+			document.getElementById('tell').value=e.val.tell;
+			document.getElementById('email').value=e.val.email;
+			document.getElementById('local').value=e.val.local;
+			document.getElementById('more').value=e.val.more;
+		}
+	});
+	document.getElementById('ricon').addEventListener('tap',function(){
+		plus.gallery.pick( function(path){
+      		var task = plus.uploader.createUpload($http+"userinfo_update_icon.php", 
+      		{ method:"POST"},function ( t, status ) {
+      		if ( status == 200 ) {
+      			plus.nativeUI.toast("头像更新成功");
+      			document.getElementById('icon').setAttribute('src',path);
+      		} else {
+      			 plus.nativeUI.toast("头像更新失败");}
+      		});
+      		task.addFile( path, {key:"icon"} );
+      		task.addData( "pho", plus.storage.getItem('pho') );
+      		task.start();
+      	}, function ( e ) {
+      		plus.nativeUI.toast( "取消选择图片" );
+      	}, {filter:"image"});
+      });
+	document.getElementById('upbtn').addEventListener('tap',function(){
+		mui.post($http+'userinfo_update.php',
+		{pho:plus.storage.getItem('pho'),
+		nik:document.getElementById('nik').value,
+		sex:document.getElementById('sex').value,
+		age:document.getElementById('age').value,
+		shopname:document.getElementById('shopname').value,
+		position:document.getElementById('position').value,
+		web:document.getElementById('web').value,
+		weixin:document.getElementById('weixin').value,
+		tell:document.getElementById('tell').value,
+		email:document.getElementById('email').value,
+		local:document.getElementById('local').value,
+		more:document.getElementById('more').value},function(e){
+			if(e.status==0){
+				plus.nativeUI.toast('设置成功！');
+				plus.webview.open('index.html','index',{top:'0px',bottom:'0px'},'slide-in-right',300);
+			}else{
+				plus.nativeUI.toast(e.msg);
+			}
+		},'json');
+	});
+});
+</script>
+</html>

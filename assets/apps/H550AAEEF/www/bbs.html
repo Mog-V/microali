@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<link rel="stylesheet" href="css/style.css"/>
+		<script src="js/mui.min.js"></script>
+		<script src="js/config.js"></script>
+		<style type="text/css">
+			.mui-slider-group{height: 200px;overflow: hidden;}
+			.bbs-line{display: block;position: absolute;left: -60px;bottom: -15px;height: 1px;background-color: #ccc;width: 340px;-webkit-transform: scaleY(0.5);}
+		</style>
+	</head>
+	<body style="background-color: rgb(241,241,241);">
+		<div class="load" id="load">
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</div>
+		<!--下拉刷新容器-->
+<div id="pullrefresh" class="mui-content" style="display: none;">
+<ul class="dsc-cot"></ul></div>
+<script src="js/config.js"></script>
+<script>    
+	mui.init({
+		pullRefresh: {
+			container: '#pullrefresh',
+			down: {
+				callback: pulldownRefresh
+			},
+			up: {
+				contentnomore: '- THE END -',
+				callback: pullupRefresh
+			}
+		}
+	});
+	var $page=0;
+document.addEventListener('plusready',function(){
+	mui.getJSON($http+'bbs_get.php', {page: $page}, function(data) {
+				if(data.status==0){
+					if(data.val.length==0){
+						mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);
+						return;
+					}
+				for (var i = 0,dli=data.val; i < dli.length; i++) {
+				var $html='<a class="dsc-list">';
+					$html+='<p class="bbs-line"></p>';
+					$html+='<img class="dsc-head" src="'+$http+'icon/'+data.val[i].icon+'" onclick=msg("'+data.val[i].pho+'","'+data.val[i].nik+'","'+data.val[i].icon+'")>';
+					$html+='<div class="dsc-top">';
+					$html+='<span class="dsc-nikname" onclick="bro('+data.val[i].bbsid+')">'+dli[i].nik+'</span>';
+					$html+='<time class="dsc-time" onclick="bro('+data.val[i].bbsid+')"><i class="icon-time"></i>'+dli[i].time+'</time></div>';
+					$html+='<p class="dsc-txt" onclick="bro('+data.val[i].bbsid+')">'+dli[i].txt+'</p>';
+					$img='';
+					for (var img=0,imgli=dli[i].img;img<imgli.length;img++) {
+						$img+='<img class="dsc-img-list" src="'+$http+'bbs/'+imgli[img]+'"/>';
+					}
+					$html+='<div class="dsc-img" onclick="bro('+data.val[i].bbsid+')"><div class="dsc-img-scroll" style="width: '+dli[i].img.length*85+'px;">'+$img+'</div></div>';
+					$html+='<div class="dsc-btn"><i class="icon-map-marker"><span>'+dli[i].local+'</span></i><i class="icon-thumbs-up" onclick="zan('+data.val[i].bbsid+')"><span>'+parseInt(dli[i].zan)+'</span></i><i class="icon-comment" onclick="pin('+data.val[i].bbsid+')"></i></div></a>';
+				var li = document.createElement('li');
+				var table = document.body.querySelector('.dsc-cot');
+				li.innerHTML = $html;
+				li.setAttribute('data-pho',dli[i].pho);
+				li.id=data.val[i].bbsid;
+				li.addEventListener('longtap',function(){
+					if(this.getAttribute('data-pho')==plus.storage.getItem('pho')){
+						var $obj=this;
+						plus.nativeUI.confirm('确认删除文章？', function(e){
+      						if(e.index==0){
+      					mui.get('http://www.wedams.com/app/ajax/ajax.php', {state: '5009',bbsid: $obj.id},
+						function(data) {
+							if(data.state==0){
+								 document.body.querySelector('.mui-table-view').removeChild($obj);
+							}
+							plus.nativeUI.toast(data.msg);
+						},'json');
+      						};
+      					}, '系统提示', ["确定","取消"] );
+					};
+				});
+				table.appendChild(li);
+				if(i==dli.length-1){
+					document.getElementById('pullrefresh').style.display="block";
+					document.getElementById('load').style.display="none";
+				}
+				}
+				mui('#pullrefresh').pullRefresh().endPullupToRefresh();
+				$page+=10;
+			}}, 'json');
+});
+	/**
+	 * 下拉刷新具体业务实现
+	 */
+	function pulldownRefresh() {
+			$page=0;
+			plus.webview.currentWebview().reload();
+			mui('#pullrefresh').pullRefresh().endPulldownToRefresh(); //refresh completed
+	}
+	/**
+	 * 上拉加载具体业务实现
+	 */
+	function pullupRefresh() {
+			mui.getJSON($http+'bbs_get.php', {page: $page}, function(data) {
+				if(data.status==0){
+					if(data.val.length==0){
+						mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);
+						return;
+					}
+				for (var i = 0,dli=data.val; i < dli.length; i++) {
+				var $html='<a class="dsc-list">';
+					$html+='<p class="bbs-line"></p>';
+					$html+='<img class="dsc-head" src="'+$http+'icon/'+data.val[i].icon+'" onclick=msg("'+data.val[i].pho+'","'+data.val[i].nik+'","'+data.val[i].icon+'")>';
+					$html+='<div class="dsc-top">';
+					$html+='<span class="dsc-nikname" onclick="bro('+data.val[i].bbsid+')">'+dli[i].nik+'</span>';
+					$html+='<time class="dsc-time" onclick="bro('+data.val[i].bbsid+')"><i class="icon-time"></i>'+dli[i].time+'</time></div>';
+					$html+='<p class="dsc-txt" onclick="bro('+data.val[i].bbsid+')">'+dli[i].txt+'</p>';
+					$img='';
+					for (var img=0,imgli=dli[i].img;img<imgli.length;img++) {
+						$img+='<img class="dsc-img-list" src="'+$http+'bbs/'+imgli[img]+'"/>';
+					}
+					$html+='<div class="dsc-img" onclick="bro('+data.val[i].bbsid+')"><div class="dsc-img-scroll" style="width: '+dli[i].img.length*85+'px;">'+$img+'</div></div>';
+					$html+='<div class="dsc-btn"><i class="icon-map-marker"><span>'+dli[i].local+'</span></i><i class="icon-thumbs-up" onclick="zan('+data.val[i].bbsid+')"><span>'+parseInt(dli[i].zan)+'</span></i><i class="icon-comment" onclick="pin('+data.val[i].bbsid+')"></i></div></a>';
+				var li = document.createElement('li');
+				var table = document.body.querySelector('.dsc-cot');
+				li.innerHTML = $html;
+				li.setAttribute('data-pho',dli[i].pho);
+				li.id=data.val[i].bbsid;
+				li.addEventListener('longtap',function(){
+					if(this.getAttribute('data-pho')==plus.storage.getItem('pho')){
+						var $obj=this;
+						plus.nativeUI.confirm('确认删除文章？', function(e){
+      						if(e.index==0){
+      					mui.getJSON($http+'bbs_del.php', {bbsid: $obj.id},
+						function(data) {
+							if(data.status==0){
+								 document.body.querySelector('.mui-table-view').removeChild($obj);
+							}
+							plus.nativeUI.toast(data.msg);
+						});
+      						};
+      					}, '系统提示', ["确定","取消"] );
+					};
+				});
+				table.appendChild(li);
+				}
+				mui('#pullrefresh').pullRefresh().endPullupToRefresh();
+				$page+=10;
+			}}, 'json');
+	}
+function bro(i){
+	mui.openWindow({url:"html/dsc.html",id:"dsc",
+    styles:{top:"0",bottom:"0",},extras:{bbsid:i},show:{duration:450},waiting:{autoShow:false}});
+}
+
+function zan(i){
+	var $obj=event.srcElement;
+	var $zan=parseInt(event.srcElement.innerText)+1;
+	mui.get($http+'bbs_zan.php',{bbsid:i,pho:plus.storage.getItem('pho')},function(data){
+		if(data.state==0){
+			$obj.innerText=$zan;
+		}
+		plus.nativeUI.toast(data.msg);
+	},'json');
+}
+function pin(i){
+	mui.openWindow({url:"html/bbsmsg.html",id:"html/bbsmsg.html",styles:{top:"0",bottom:"0",},extras:{bbsid:i},show:{duration:450},waiting: {autoShow: false}});
+}
+function bigimg(){
+	var $obj=event.srcElement.parentElement.childNodes;
+	var $imgarr=new Array();
+	for (var i=0;i<$obj.length;i++) {
+		$imgarr.push($obj[i].getAttribute('src'));
+	}
+	mui.openWindow({url:"html/bigimg.html",id:"html/bigimg.html",
+    styles:{top:"0",bottom:"0"},extras:{imgarr:$imgarr},show:{duration:450},waiting: {autoShow: false}});
+}
+function msg($to,$nik,$icon){
+mui.openWindow({
+    url:"html/chat.html",
+    id:"msg"+$to,
+    styles:{top:"0",bottom:"0"},extras:{to:$to,nik:$nik,icon:$icon},waiting:{autoShow:false}
+})}
+</script>
+</body>
+</html>
